@@ -19,13 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CensoRegional.Infrastructur
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{2213D73D-2613-42F5-AD29-2AD7C0F2394E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "censoRegional.Test.Application", "censoRegional.Test.Application\censoRegional.Test.Application.csproj", "{E0A09B7E-BD57-4633-88DE-A653619E48F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "censoRegional.Test.Application", "censoRegional.Test.Application\censoRegional.Test.Application.csproj", "{E0A09B7E-BD57-4633-88DE-A653619E48F7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Util", "Util", "{2EAAE96E-E77F-468C-A831-91F982016B88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CensoRegional.Util", "CensoRegional.Util\CensoRegional.Util.csproj", "{3B133856-1CC3-421C-B038-1A95405A7333}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ioc", "Ioc", "{7F577B85-56C1-4154-B167-03BC5ABD9D8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CensoRegional.Util", "CensoRegional.Util\CensoRegional.Util.csproj", "{3B133856-1CC3-421C-B038-1A95405A7333}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

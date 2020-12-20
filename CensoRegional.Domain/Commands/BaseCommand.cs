@@ -19,7 +19,7 @@ namespace CensoRegional.Domain.Commands
                 }
                 return _operationId;
             }
-            set => _operationId = Guid.NewGuid();
+            set { _operationId = Guid.NewGuid(); }
         }
         public string Origem
         {
@@ -31,7 +31,7 @@ namespace CensoRegional.Domain.Commands
                 }
                 return _origem;
             }
-            set => _origem = value;
+            set { _origem = value; }
         }
 
         public DateTime Data
@@ -44,7 +44,7 @@ namespace CensoRegional.Domain.Commands
                 }
                 return _data;
             }
-            set => _data = value;
+            set { _data = value; }
         }
     }
 }
