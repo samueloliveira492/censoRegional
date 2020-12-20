@@ -18,7 +18,7 @@ namespace CensoRegional.Api.Sender.Controllers
         {
             _mediator = mediator;
         }
-        // POST api/values
+
         [HttpPost]
         public void Post([FromBody] PersonCreateModel request)
         {

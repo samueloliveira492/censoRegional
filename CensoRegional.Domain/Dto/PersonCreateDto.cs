@@ -1,7 +1,6 @@
 ﻿using CensoRegional.Util.Enums;
-using System.Collections.Generic;
 
-namespace CensoRegional.Api.Sender.Models
+namespace CensoRegional.Domain.Dto
 {
     public class PersonCreateDto
     {
@@ -10,7 +9,10 @@ namespace CensoRegional.Api.Sender.Models
         public string Region { get; set; }
         public ColorType? Color { get; set; }
         public LevelEducationType? LevelEducation { get; set; }
-        public IEnumerable<PersonCreateDto> Parents { get; set; }
-        public IEnumerable<PersonCreateDto> Children { get; set; }
+
+        public bool IsValid()
+        {
+            return !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(LastName);
+        }
     }
 }

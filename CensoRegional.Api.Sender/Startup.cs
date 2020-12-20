@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using CensoRegional.Ioc;
+using curso.Ioc;
+using AutoMapper;
 
 namespace CensoRegional.Api.Sender
 {
@@ -26,7 +29,8 @@ namespace CensoRegional.Api.Sender
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddRouting(options => options.LowercaseUrls = true);
-
+            services.AddAutoMapper(AssemblyReflection.GetCurrentAssemblies());
+            services.AddResolverDependencies();
             services.AddMediatR(typeof(PersonCreatedCommandHandler));
 
             services.AddRabbitMq(Configuration);
@@ -38,7 +42,7 @@ namespace CensoRegional.Api.Sender
                 c.SwaggerDoc("v1", new Info
                 {
                     Version = "v1",
-                    Title = "Desafio Censo Regional",
+                    Title = "Censo Regional - Commands",
                     Description = "",
                     TermsOfService = "None",
                     Contact = new Contact

@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using CensoRegional.Application.QueryHandlers;
+using CensoRegional.Ioc;
+using curso.Ioc;
+using AutoMapper;
 
 namespace CensoRegional.Api.Consumer
 {
@@ -27,9 +30,10 @@ namespace CensoRegional.Api.Consumer
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddRouting(options => options.LowercaseUrls = true);
-
+            services.AddResolverDependencies();
             services.AddMediatR(typeof(PersonCreatedEventHandler));
             services.AddMediatR(typeof(PercentagePeopleSameNameByRegionQueryHandler));
+            services.AddAutoMapper(AssemblyReflection.GetCurrentAssemblies());
 
             services.AddRabbitMq(Configuration);
 
@@ -41,13 +45,13 @@ namespace CensoRegional.Api.Consumer
                 c.SwaggerDoc("v1", new Info
                 {
                     Version = "v1",
-                    Title = "Api de criação de Pessoas",
-                    Description = "Test Description",
+                    Title = "Censo Regional - Queries and Events",
+                    Description = "",
                     TermsOfService = "None",
                     Contact = new Contact
                     {
-                        Name = "Ali Ben Chaabene",
-                        Email = "alibenchaabene@gmail.com",
+                        Name = "Samuel de Oliveira",
+                        Email = "samueloliveira492@gmail.com",
                         Url = ""
                     }
 

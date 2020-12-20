@@ -1,11 +1,11 @@
-﻿using CensoRegional.Domain.Entity;
+﻿using CensoRegional.Domain.Dto;
 using System.Collections.Generic;
 
 namespace CensoRegional.Domain.Commands
 {
     public class PersonCreatedCommand : BaseCommand { 
-        public Person Person { get; set; }
-        public IEnumerable<Person> Parents { get; set; }
-        public IEnumerable<Person> Children { get; set; }
+        public PersonCreateDto Person { get; set; }
+        public IEnumerable<PersonCreatedCommand> Parents { get; set; }
+        public IEnumerable<PersonCreatedCommand> Children { get; set; }
     }
 }
