@@ -7,9 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.IO;
-using System.Reflection;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace CensoRegional.Api.Sender

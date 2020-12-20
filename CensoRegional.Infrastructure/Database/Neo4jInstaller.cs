@@ -5,7 +5,7 @@ using System;
 
 namespace CensoRegional.Infrastructure.Database
 {
-    public static class Neo4jInstaller
+    public static class Neo4JInstaller
     {
         public static IServiceCollection AddDatabaseNeo4J(this IServiceCollection services, IConfiguration configuration)
         {

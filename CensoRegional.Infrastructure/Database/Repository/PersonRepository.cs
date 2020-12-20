@@ -9,7 +9,7 @@ namespace CensoRegional.Infrastructure.Database.Repository
 {
     public class PersonRepository: IPersonRepository
     {
-        public IGraphClient _graphClient;
+        private readonly IGraphClient _graphClient;
         public PersonRepository(IGraphClient graphClient)
         {
             _graphClient = graphClient;
