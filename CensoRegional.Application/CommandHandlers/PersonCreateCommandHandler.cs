@@ -13,29 +13,29 @@ using System.Linq;
 
 namespace CensoRegional.Application.CommandHandlers
 {
-    public class PersonCreatedCommandHandler : IRequestHandler<PersonCreatedCommand>
+    public class PersonCreateCommandHandler : IRequestHandler<PersonCreateCommand>
     {
         private readonly IBusPublisher _busPublisher;
         private readonly IPersonRepository _personRepository;
         private readonly IMapper _mapper;
-        public PersonCreatedCommandHandler(IBusPublisher busPublisher, IPersonRepository personRepository, IMapper mapper)
+        public PersonCreateCommandHandler(IBusPublisher busPublisher, IPersonRepository personRepository, IMapper mapper)
         {
             _busPublisher = busPublisher;
             _personRepository = personRepository;
             _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(PersonCreatedCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(PersonCreateCommand request, CancellationToken cancellationToken)
         {
             Person mainPerson = _mapper.Map<Person>(request.Person);
             await _personRepository.CreatePerson(mainPerson);
             CreatePersonAndRelationship(request.Parents, mainPerson, true);
             CreatePersonAndRelationship(request.Children, mainPerson, false);
-            await _busPublisher.PublishAsync(new PersonCreatedEvent {  Name = request.Person.Name, LastName = request.Person.LastName });
+            await _busPublisher.PublishAsync(new PersonCreateEvent {  Name = request.Person.Name, LastName = request.Person.LastName });
             return Unit.Value;
         }
 
-        private void CreatePersonAndRelationship(IEnumerable<PersonCreatedCommand> list, Person mainPerson, bool isParent)
+        private void CreatePersonAndRelationship(IEnumerable<PersonCreateCommand> list, Person mainPerson, bool isParent)
         {
             foreach (var p in list)
             {

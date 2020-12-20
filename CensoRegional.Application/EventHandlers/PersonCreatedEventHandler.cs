@@ -7,7 +7,7 @@ namespace CensoRegional.Application.EventHandlers
 {
     public class PersonCreatedEventHandler
     {
-        public async Task<Unit> Handle(PersonCreatedEvent request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(PersonCreateEvent request, CancellationToken cancellationToken)
         {
             return Unit.Value;
         }

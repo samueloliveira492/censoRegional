@@ -31,7 +31,7 @@ namespace CensoRegional.Api.Sender
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddAutoMapper(AssemblyReflection.GetCurrentAssemblies());
             services.AddResolverDependencies();
-            services.AddMediatR(typeof(PersonCreatedCommandHandler));
+            services.AddMediatR(typeof(PersonCreateCommandHandler));
 
             services.AddRabbitMq(Configuration);
 

@@ -16,7 +16,13 @@ namespace CensoRegional.Api.Sender.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] PersonCreatedCommand request)
+        public void Post([FromBody] PersonCreateCommand request)
+        {
+            _mediator.Send(request);
+        }
+
+        [HttpDelete]
+        public void Delete([FromBody] PersonDeleteCommand request)
         {
             _mediator.Send(request);
         }
