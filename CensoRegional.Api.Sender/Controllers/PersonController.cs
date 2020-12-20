@@ -1,4 +1,5 @@
 ﻿using CensoRegional.Api.Sender.Models;
+using CensoRegional.Domain.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,7 +22,7 @@ namespace CensoRegional.Api.Sender.Controllers
         [HttpPost]
         public void Post([FromBody] PersonCreateModel request)
         {
-            _mediator.Send(new PersonCreatedCommand)
+            _mediator.Send(new PersonCreatedCommand());
         }
 
         // PUT api/values/5
