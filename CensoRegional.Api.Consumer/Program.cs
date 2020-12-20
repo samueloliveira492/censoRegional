@@ -6,7 +6,7 @@ using System.IO;
 
 namespace CensoRegional.Api.Consumer
 {
-    public class Program
+    public static class Program
     {
         public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())

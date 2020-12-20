@@ -2,6 +2,6 @@
 {
     public static class Relacionamentos
     {
-        public static string PARENT { get { return "PARENT"; } }
+        public const string PARENT = "PARENT";
     }
 }
