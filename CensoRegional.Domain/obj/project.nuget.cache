@@ -1,12 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "LQPiwoMtVfKCvyVTe6b8VnoVlxCRf2LnkzadlWDq/rzgzWmn6MuPJ2W/yS3VcIqADwXZg03EXEJ0RQL4Nv2yjg==",
+  "dgSpecHash": "xmAXGmM++CtCdXSNhbFD3UaBZHaMAb5UjXOP3oiMBWoG1cBOIc2e5t1gzc3+VUVU+LeGzkC7apHSn2+VpDcSpw==",
   "success": true,
   "projectFilePath": "C:\\Users\\samue\\source\\repos\\samueloliveira492\\desafioCensoRegional\\censoRegional\\censoRegional\\CensoRegional.Domain\\CensoRegional.Domain.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\samue\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\samue\\.nuget\\packages\\mediatr\\9.0.0\\mediatr.9.0.0.nupkg.sha512",
+    "C:\\Users\\samue\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\samue\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\samue\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+    "C:\\Users\\samue\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\samue\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
+    "C:\\Users\\samue\\.nuget\\packages\\system.reflection.emit.ilgeneration\\4.7.0\\system.reflection.emit.ilgeneration.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }

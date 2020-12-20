@@ -1,11 +1,7 @@
-﻿using CensoRegional.Api.Sender.Models;
+﻿
 using CensoRegional.Domain.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CensoRegional.Api.Sender.Controllers
 {
@@ -18,11 +14,17 @@ namespace CensoRegional.Api.Sender.Controllers
         {
             _mediator = mediator;
         }
-        // POST api/values
+
         [HttpPost]
-        public void Post([FromBody] PersonCreateModel request)
+        public void Post([FromBody] PersonCreateCommand request)
         {
-            _mediator.Send(new PersonCreatedCommand() { Person = null});
+            _mediator.Send(request);
+        }
+
+        [HttpDelete]
+        public void Delete([FromBody] PersonDeleteCommand request)
+        {
+            _mediator.Send(request);
         }
     }
 }

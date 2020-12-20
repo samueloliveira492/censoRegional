@@ -8,8 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="MediatR" Version="9.0.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
@@ -20,6 +21,7 @@
     <ProjectReference Include="..\CensoRegional.Application\CensoRegional.Application.csproj" />
     <ProjectReference Include="..\CensoRegional.Domain\CensoRegional.Domain.csproj" />
     <ProjectReference Include="..\CensoRegional.Infrastructure\CensoRegional.Infrastructure.csproj" />
+    <ProjectReference Include="..\CensoRegional.Ioc\CensoRegional.Ioc.csproj" />
   </ItemGroup>
 
 </Project>

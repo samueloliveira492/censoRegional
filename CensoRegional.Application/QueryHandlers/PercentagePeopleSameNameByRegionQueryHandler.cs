@@ -1,4 +1,4 @@
-﻿using CensoRegional.Domain.Dto;
+﻿using CensoRegional.Domain.Dtos;
 using CensoRegional.Domain.Entity;
 using CensoRegional.Domain.Queries;
 using CensoRegional.Domain.Repositories;

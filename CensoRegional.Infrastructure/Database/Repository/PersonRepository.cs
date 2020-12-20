@@ -1,5 +1,7 @@
 ﻿using CensoRegional.Domain.Entity;
 using CensoRegional.Domain.Repositories;
+using CensoRegional.Util.Constantes;
+using CensoRegional.Util.Enums;
 using MediatR;
 using Neo4jClient;
 using System.Collections.Generic;
@@ -24,6 +26,16 @@ namespace CensoRegional.Infrastructure.Database.Repository
             return Unit.Value;
         }
 
+        public async Task<Unit> DeletePerson(Person person)
+        {
+            await _graphClient.Cypher
+            .Match($"(a:{ typeof(Person) })")
+            .Where((Person a) => a.Name.Equals(person.Name))
+            .AndWhere((Person a) => a.Name.Equals(person.LastName))
+            .Delete("a").ExecuteWithoutResultsAsync();
+            return Unit.Value;
+        }
+
         public void CreateRelationship(Person parent, Person son, string relationship)
         {
             _graphClient.Cypher
@@ -39,6 +51,26 @@ namespace CensoRegional.Infrastructure.Database.Repository
             return await _graphClient.Cypher
             .Match($"(a:{ typeof(Person) })")
             .Where((Person a) => a.Region.Equals(region))
+            .Return<Person>("a").ResultsAsync;
+        }
+
+        public async Task<IEnumerable<Person>> GetChildrenByNameAndLastName(string name, string lastName)
+        {
+            return await _graphClient.Cypher
+            .Match($"(a:{ typeof(Person) })-[r:" + Relacionamentos.PARENT + $"]->(b:{ typeof(Person) })")
+            .Where((Person a) => a.Name.Equals(name))
+            .AndWhere((Person a) => a.LastName.Equals(lastName))
+            .Return<Person>("b").ResultsAsync;
+        }
+
+        public async Task<IEnumerable<Person>> GetPersonByConcatenationFilterCondition(string name, string lastName, ColorType? color, LevelEducationType? levelEducation)
+        {
+            return await _graphClient.Cypher
+            .Match($"(a:{ typeof(Person) })")
+            .WhereIf(!string.IsNullOrEmpty(name), (Person a) => a.Name.Equals(name))
+            .AndWhereIf(!string.IsNullOrEmpty(lastName), (Person a) => a.LastName.Equals(lastName))
+            .AndWhereIf(color.HasValue, (Person a) => a.Color == color)
+            .AndWhereIf(levelEducation.HasValue, (Person a) => a.LevelEducation == levelEducation)
             .Return<Person>("a").ResultsAsync;
         }
     }
