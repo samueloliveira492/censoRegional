@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using CensoRegional.Util.Constantes;
 using AutoMapper;
-using CensoRegional.Domain.Dto;
 using System.Linq;
 
 namespace CensoRegional.Application.CommandHandlers
@@ -32,7 +31,7 @@ namespace CensoRegional.Application.CommandHandlers
             await _personRepository.CreatePerson(mainPerson);
             CreatePersonAndRelationship(request.Parents, mainPerson, true);
             CreatePersonAndRelationship(request.Children, mainPerson, false);
-            //await _busPublisher.PublishAsync(new PersonCreatedEvent {  Name = request.Person.Name, LastName = request.Person.LastName });
+            await _busPublisher.PublishAsync(new PersonCreatedEvent {  Name = request.Person.Name, LastName = request.Person.LastName });
             return Unit.Value;
         }
 

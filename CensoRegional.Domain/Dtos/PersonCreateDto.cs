@@ -1,6 +1,6 @@
 ﻿using CensoRegional.Util.Enums;
 
-namespace CensoRegional.Domain.Dto
+namespace CensoRegional.Domain.Dtos
 {
     public class PersonCreateDto
     {

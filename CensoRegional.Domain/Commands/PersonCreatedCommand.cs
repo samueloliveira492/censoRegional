@@ -1,4 +1,4 @@
-﻿using CensoRegional.Domain.Dto;
+﻿using CensoRegional.Domain.Dtos;
 using System.Collections.Generic;
 
 namespace CensoRegional.Domain.Commands

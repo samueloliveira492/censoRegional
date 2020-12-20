@@ -330,7 +330,7 @@
       },
       "CensoRegional.Domain/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v2.0",
+        "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "AutoMapper": "10.1.1",
           "CensoRegional.Util": "1.0.0",

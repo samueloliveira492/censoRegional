@@ -1,11 +1,7 @@
-﻿using CensoRegional.Api.Sender.Models;
+﻿
 using CensoRegional.Domain.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CensoRegional.Api.Sender.Controllers
 {
@@ -20,9 +16,9 @@ namespace CensoRegional.Api.Sender.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] PersonCreateModel request)
+        public void Post([FromBody] PersonCreatedCommand request)
         {
-            _mediator.Send(new PersonCreatedCommand() { Person = null});
+            _mediator.Send(request);
         }
     }
 }

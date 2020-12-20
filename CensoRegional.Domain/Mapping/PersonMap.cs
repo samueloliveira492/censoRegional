@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CensoRegional.Domain.Dto;
+using CensoRegional.Domain.Dtos;
 using CensoRegional.Domain.Entity;
 
 namespace CensoRegional.Domain.Mapping

@@ -1,4 +1,4 @@
-﻿namespace CensoRegional.Domain.Dto
+﻿namespace CensoRegional.Domain.Dtos
 {
     public class PercentagePeopleSameNameByRegionQueryDto
     {
