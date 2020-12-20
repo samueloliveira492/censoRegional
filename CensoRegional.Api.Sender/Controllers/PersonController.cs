@@ -22,7 +22,7 @@ namespace CensoRegional.Api.Sender.Controllers
         [HttpPost]
         public void Post([FromBody] PersonCreateModel request)
         {
-            _mediator.Send(new PersonCreatedCommand());
+            _mediator.Send(new PersonCreatedCommand() { Person = null});
         }
 
         // PUT api/values/5
