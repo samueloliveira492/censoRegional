@@ -11,10 +11,10 @@ namespace CensoRegional.Api.Consumer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PersonController : ControllerBase
+    public class PersonConsumerController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public PersonController(IMediator mediator)
+        public PersonConsumerController(IMediator mediator)
         {
             _mediator = mediator;
         }

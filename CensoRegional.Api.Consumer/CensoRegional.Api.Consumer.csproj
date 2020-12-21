@@ -18,9 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CensoRegional.Api.Sender\CensoRegional.Api.Sender.csproj" />
     <ProjectReference Include="..\CensoRegional.Application\CensoRegional.Application.csproj" />
     <ProjectReference Include="..\CensoRegional.Domain\CensoRegional.Domain.csproj" />
+    <ProjectReference Include="..\CensoRegional.Infrastructure\CensoRegional.Infrastructure.csproj" />
     <ProjectReference Include="..\CensoRegional.Ioc\CensoRegional.Ioc.csproj" />
   </ItemGroup>
 

@@ -42,7 +42,7 @@ namespace CensoRegional.Api.Consumer
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info
+                c.SwaggerDoc("consumer", new Info
                 {
                     Version = "v1",
                     Title = "Censo Regional - Queries and Events",
@@ -80,8 +80,7 @@ namespace CensoRegional.Api.Consumer
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Test Version 1");
-                c.SwaggerEndpoint("/swagger/v2/swagger.json", "API Test Version 2");
+                c.SwaggerEndpoint("/swagger/consumer/swagger.json", "API consumer");
             });
 
             app.UseHttpsRedirection();

@@ -39,7 +39,7 @@ namespace CensoRegional.Api.Sender
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info
+                c.SwaggerDoc("sender", new Info
                 {
                     Version = "v1",
                     Title = "Censo Regional - Commands",
@@ -77,7 +77,7 @@ namespace CensoRegional.Api.Sender
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Test Version 1");
+                c.SwaggerEndpoint("/swagger/sender/swagger.json", "API Sender");
             });
 
             app.UseHttpsRedirection();

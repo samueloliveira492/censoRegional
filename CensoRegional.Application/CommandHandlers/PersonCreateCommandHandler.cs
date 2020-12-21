@@ -28,11 +28,14 @@ namespace CensoRegional.Application.CommandHandlers
         public async Task<Unit> Handle(PersonCreateCommand request, CancellationToken cancellationToken)
         {
             Person mainPerson = _mapper.Map<Person>(request.Person);
-            await _personRepository.CreatePerson(mainPerson);
-            CreatePersonAndRelationship(request.Parents, mainPerson, true);
-            CreatePersonAndRelationship(request.Children, mainPerson, false);
-            await _busPublisher.PublishAsync(new PersonCreateEvent { Name = request.Person.Name, LastName = request.Person.LastName });
-           
+            Person cleaning = _personRepository.GetByNameAndLastName(mainPerson.Name, mainPerson.LastName).Result.FirstOrDefault();
+            if (cleaning == null)
+            {
+                await _personRepository.CreatePerson(mainPerson);
+                CreatePersonAndRelationship(request.Parents, mainPerson, true);
+                CreatePersonAndRelationship(request.Children, mainPerson, false);
+                await _busPublisher.PublishAsync(new PersonCreateEvent { Name = request.Person.Name, LastName = request.Person.LastName });
+            }
             return Unit.Value;
         }
 
