@@ -12,17 +12,3 @@ C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional
 C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\CensoRegional.Application\obj\Debug\netstandard2.0\CensoRegional.Application.pdb
 C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\CensoRegional.Application\bin\Debug\netstandard2.0\CensoRegional.Util.dll
 C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\CensoRegional.Application\bin\Debug\netstandard2.0\CensoRegional.Util.pdb
-C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\censoRegional\CensoRegional.Application\bin\Debug\netstandard2.0\CensoRegional.Application.deps.json
-C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\censoRegional\CensoRegional.Application\bin\Debug\netstandard2.0\CensoRegional.Application.dll
-C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\censoRegional\CensoRegional.Application\bin\Debug\netstandard2.0\CensoRegional.Application.pdb
-C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\censoRegional\CensoRegional.Application\bin\Debug\netstandard2.0\CensoRegional.Domain.dll
-C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\censoRegional\CensoRegional.Application\bin\Debug\netstandard2.0\CensoRegional.Util.dll
-C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\censoRegional\CensoRegional.Application\bin\Debug\netstandard2.0\CensoRegional.Domain.pdb
-C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\censoRegional\CensoRegional.Application\bin\Debug\netstandard2.0\CensoRegional.Util.pdb
-C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\censoRegional\CensoRegional.Application\obj\Debug\netstandard2.0\CensoRegional.Application.csprojAssemblyReference.cache
-C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\censoRegional\CensoRegional.Application\obj\Debug\netstandard2.0\CensoRegional.Application.AssemblyInfoInputs.cache
-C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\censoRegional\CensoRegional.Application\obj\Debug\netstandard2.0\CensoRegional.Application.AssemblyInfo.cs
-C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\censoRegional\CensoRegional.Application\obj\Debug\netstandard2.0\CensoRegional.Application.csproj.CoreCompileInputs.cache
-C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\censoRegional\CensoRegional.Application\obj\Debug\netstandard2.0\CensoRegional.Application.csproj.CopyComplete
-C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\censoRegional\CensoRegional.Application\obj\Debug\netstandard2.0\CensoRegional.Application.dll
-C:\Users\samue\source\repos\samueloliveira492\desafioCensoRegional\censoRegional\censoRegional\CensoRegional.Application\obj\Debug\netstandard2.0\CensoRegional.Application.pdb
