@@ -20,26 +20,20 @@ namespace CensoRegional.Application.QueryHandlers
 
         public async Task<FamilyTreeByPersonQueryDto> Handle(FamilyTreeByPersonQuery request, CancellationToken cancellationToken)
         {
-            try
+            FamilyTreeByPersonQueryDto resultado = null;
+            var personCleaning = _personRepository.GetByNameAndLastName(request.Name, request.LastName).Result;
+            if (personCleaning != null && personCleaning.Any())
             {
-                FamilyTreeByPersonQueryDto resultado = null;
-                var personCleaning = _personRepository.GetByNameAndLastName(request.Name, request.LastName).Result;
-                if (personCleaning != null && personCleaning.Any())
-                {
-                    resultado = new FamilyTreeByPersonQueryDto();
-                    resultado.Name = request.Name;
-                    resultado.LastName = request.LastName;
+                resultado = new FamilyTreeByPersonQueryDto();
+                resultado.Name = request.Name;
+                resultado.LastName = request.LastName;
 
-                    resultado.Children = new List<FamilyTreeByPersonQueryDto>();
-                    if (request.Level > 0)
-                        resultado.Children = await GetTreeFamily(request.Name, request.LastName, request.Level);
+                resultado.Children = new List<FamilyTreeByPersonQueryDto>();
+                if (request.Level > 0)
+                    resultado.Children = await GetTreeFamily(request.Name, request.LastName, request.Level);
 
-                }
-                return resultado;
-            } catch(Exception ex)
-            {
-                throw new Exception(ex.ToString());
             }
+            return resultado;
             
         }
 

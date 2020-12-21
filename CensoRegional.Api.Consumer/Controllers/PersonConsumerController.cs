@@ -32,18 +32,10 @@ namespace CensoRegional.Api.Consumer.Controllers
         [ProducesResponseType(typeof(FamilyTreeByPersonQuery), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetFamilyTreeByPerson(string name, string lastName, int level)
         {
-            FamilyTreeByPersonQueryDto result = new FamilyTreeByPersonQueryDto();
-            try
-            {
-                if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(lastName))
-                    return BadRequest();
-                result = await _mediator.Send(new FamilyTreeByPersonQuery { Name = name, LastName = lastName, Level = level });
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(lastName))
+                return BadRequest();
                 
-            } catch(Exception ex)
-            {
-                BadRequest(ex.Message);
-            }
-            return Ok(result);
+            return Ok(await _mediator.Send(new FamilyTreeByPersonQuery { Name = name, LastName = lastName, Level = level }));
 
         }
 
