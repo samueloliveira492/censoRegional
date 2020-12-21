@@ -52,7 +52,7 @@ namespace CensoRegional.Test.Domain.Queries
             Assert.Equal(result.LastName, person.LastName);
             Assert.Null(result.Children);
 
-            personRepository.Verify(m => m.GetByNameAndLastName(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            personRepository.Verify(m => m.GetByNameAndLastName(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
             personRepository.Verify(m => m.GetChildrenByNameAndLastName(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
