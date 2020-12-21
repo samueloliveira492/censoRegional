@@ -20,17 +20,10 @@ namespace CensoRegional.Infrastructure.Database.Repository
 
         public async Task<Unit> CreatePerson(Person person)
         {
-            try
-            {
-                await _graphClient.Cypher
-                .Create($"(n:Person) SET n = $newNode")
-                .WithParam("newNode", person)
-                .ExecuteWithoutResultsAsync();
-            } catch(Exception ex)
-            {
-                return Unit.Value;
-            }
-               
+            await _graphClient.Cypher
+            .Create($"(n:Person) SET n = $newNode")
+            .WithParam("newNode", person)
+            .ExecuteWithoutResultsAsync();
             
             return Unit.Value;
         }
@@ -57,18 +50,10 @@ namespace CensoRegional.Infrastructure.Database.Repository
 
         public async Task<IEnumerable<Person>> GetAllPersonByRegion(string region)
         {
-            try {
-                var teste = await _graphClient.Cypher
-                 .Match("(a:Person)")
-                 .Where((Person a) => a.Region == region)
-                 .Return<Person>("a").ResultsAsync;
-                return teste;
-            }
-            catch (Exception ex)
-            {
-                return new List<Person>();
-            }
-
+            return await _graphClient.Cypher
+                .Match("(a:Person)")
+                .Where((Person a) => a.Region == region)
+                .Return<Person>("a").ResultsAsync;
         }
 
         public async Task<IEnumerable<Person>> GetChildrenByNameAndLastName(string name, string lastName)
@@ -91,7 +76,7 @@ namespace CensoRegional.Infrastructure.Database.Repository
 
         public async Task<IEnumerable<Person>> GetPersonByConcatenationFilterCondition(string name, string lastName, ColorType? color, LevelEducationType? levelEducation)
         {
-            var teste = _graphClient.Cypher
+             return await _graphClient.Cypher
             .Match($"(a:Person)")
             .WhereIf(!string.IsNullOrEmpty(name), (Person a) => a.Name == name)
             .WhereIf(string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(lastName), (Person a) => a.LastName == lastName)
@@ -100,8 +85,7 @@ namespace CensoRegional.Infrastructure.Database.Repository
             .AndWhereIf(!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(lastName), (Person a) => a.LastName == lastName)
             .AndWhereIf((!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(lastName)) && color.HasValue && color.Value > 0, (Person a) => a.Color == color)
             .AndWhereIf((!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(lastName) || (color.HasValue && color.Value > 0)) && levelEducation.HasValue && levelEducation.Value > 0, (Person a) => a.LevelEducation == levelEducation)
-            .Return<Person>("a");
-            return await teste.ResultsAsync;
+            .Return<Person>("a").ResultsAsync;
         }
     }
 }
