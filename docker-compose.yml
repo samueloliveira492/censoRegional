@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  sender:
+    image: Sender
+    build:
+      context: .
+      dockerfile: CensoRegional.Api.Sender/Dockerfile
+    ports:
+      - "20001:80"
+    depends_on:
+      - "neo4j"
+      - "rabbitmq"
+
+  consumer:
+    image:Consumer
+    build:
+      context: .
+      dockerfile: CensoRegional.Api.Consumer/Dockerfile
+    ports:
+      - "20000:80"
+    depends_on:
+      - "neo4j"
+      - "rabbitmq"
+      
+  neo4j:
+    image: neo4j:latest
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+      
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    volumes:
+        - ./.docker/rabbitmq/etc/:/etc/rabbitmq/
+        - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
+        - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
+    environment:
+        RABBITMQ_DEFAULT_USER: "guest"
+        RABBITMQ_DEFAULT_PASS: "guest"
+    ports:
+        - "5672":"5672"
+        - "15672":"15672"
