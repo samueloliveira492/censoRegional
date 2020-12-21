@@ -5,6 +5,8 @@ services:
     ports:
       - "7474:7474"
       - "7687:7687"
+    environment:
+      NEO4J_AUTH: 'neo4j/neo'
       
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -22,12 +24,13 @@ services:
       context: .
       dockerfile: CensoRegional.Api.Sender/Dockerfile
     ports:
-      - "20001:80"
+      - "20001:8080"
     depends_on:
       neo4j:
-        condition: service_healthy
+        condition: service_started
       rabbitmq:
         condition: service_started
+    restart: on-failure
 
   consumer:
     image: consumer
@@ -35,9 +38,10 @@ services:
       context: .
       dockerfile: CensoRegional.Api.Consumer/Dockerfile
     ports:
-      - "20000:80"
+      - "20000:8081"
     depends_on:
       neo4j:
         condition: service_started
       rabbitmq:
         condition: service_started
+    restart: on-failure
