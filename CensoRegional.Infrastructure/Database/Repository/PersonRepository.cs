@@ -20,10 +20,17 @@ namespace CensoRegional.Infrastructure.Database.Repository
 
         public async Task<Unit> CreatePerson(Person person)
         {
-               await _graphClient.Cypher
-                .Merge($"(n:Person) SET n = $newNode")
+            try
+            {
+                await _graphClient.Cypher
+                .Create($"(n:Person) SET n = $newNode")
                 .WithParam("newNode", person)
                 .ExecuteWithoutResultsAsync();
+            } catch(Exception ex)
+            {
+                return Unit.Value;
+            }
+               
             
             return Unit.Value;
         }
@@ -73,15 +80,28 @@ namespace CensoRegional.Infrastructure.Database.Repository
             .Return<Person>("b").ResultsAsync;
         }
 
-        public async Task<IEnumerable<Person>> GetPersonByConcatenationFilterCondition(string name, string lastName, ColorType? color, LevelEducationType? levelEducation)
+        public async Task<IEnumerable<Person>> GetByNameAndLastName(string name, string lastName)
         {
             return await _graphClient.Cypher
             .Match($"(a:Person)")
-            .WhereIf(!string.IsNullOrEmpty(name), (Person a) => a.Name == name)
-            .AndWhereIf(!string.IsNullOrEmpty(lastName), (Person a) => a.LastName == lastName)
-            .AndWhereIf(color.HasValue, (Person a) => a.Color == color)
-            .AndWhereIf(levelEducation.HasValue, (Person a) => a.LevelEducation == levelEducation)
+            .Where((Person a) => a.Name == name)
+            .AndWhere((Person a) => a.LastName == lastName)
             .Return<Person>("a").ResultsAsync;
+        }
+
+        public async Task<IEnumerable<Person>> GetPersonByConcatenationFilterCondition(string name, string lastName, ColorType? color, LevelEducationType? levelEducation)
+        {
+            var teste = _graphClient.Cypher
+            .Match($"(a:Person)")
+            .WhereIf(!string.IsNullOrEmpty(name), (Person a) => a.Name == name)
+            .WhereIf(string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(lastName), (Person a) => a.LastName == lastName)
+            .WhereIf(string.IsNullOrEmpty(name) && string.IsNullOrEmpty(lastName) && color.HasValue && color.Value > 0, (Person a) => a.Color == color)
+            .WhereIf(string.IsNullOrEmpty(name) && string.IsNullOrEmpty(lastName) && (!color.HasValue || color.Value == 0) && levelEducation.HasValue && levelEducation.Value > 0, (Person a) => a.LevelEducation == levelEducation)
+            .AndWhereIf(!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(lastName), (Person a) => a.LastName == lastName)
+            .AndWhereIf((!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(lastName)) && color.HasValue && color.Value > 0, (Person a) => a.Color == color)
+            .AndWhereIf((!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(lastName) || (color.HasValue && color.Value > 0)) && levelEducation.HasValue && levelEducation.Value > 0, (Person a) => a.LevelEducation == levelEducation)
+            .Return<Person>("a");
+            return await teste.ResultsAsync;
         }
     }
 }

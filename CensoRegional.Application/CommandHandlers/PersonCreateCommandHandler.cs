@@ -45,7 +45,10 @@ namespace CensoRegional.Application.CommandHandlers
                     Person rel = _mapper.Map<Person>(p.Person);
                     if (rel.IsValid())
                     {
-                        _personRepository.CreatePerson(rel);
+                        Person cleaning = _personRepository.GetByNameAndLastName(rel.Name, rel.LastName).Result.FirstOrDefault();
+                        if (cleaning == null)
+                            _personRepository.CreatePerson(rel);
+
                         if (isParent)
                         {
                             _personRepository.CreateRelationship(rel, mainPerson, Relacionamentos.PARENT);
@@ -55,9 +58,9 @@ namespace CensoRegional.Application.CommandHandlers
                             _personRepository.CreateRelationship(mainPerson, rel, Relacionamentos.PARENT);
                         }
 
-                        if (p.Parents.Any())
+                        if (p.Parents != null && p.Parents.Any())
                             CreatePersonAndRelationship(p.Parents, rel, true);
-                        if (p.Children.Any())
+                        if (p.Children != null &&  p.Children.Any())
                             CreatePersonAndRelationship(p.Children, rel, false);
                     }
                 }

@@ -24,8 +24,10 @@ services:
     ports:
       - "20001:80"
     depends_on:
-      - "neo4j"
-      - "rabbitmq"
+      neo4j:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
 
   consumer:
     image: consumer
@@ -35,5 +37,7 @@ services:
     ports:
       - "20000:80"
     depends_on:
-      - "neo4j"
-      - "rabbitmq"
+      neo4j:
+        condition: service_started
+      rabbitmq:
+        condition: service_started

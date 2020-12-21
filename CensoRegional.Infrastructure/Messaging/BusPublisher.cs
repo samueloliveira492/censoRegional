@@ -1,6 +1,7 @@
 ﻿using CensoRegional.Domain.Messaging;
 using RawRabbit;
 using RawRabbit.Configuration.Exchange;
+using System;
 using System.Threading.Tasks;
 
 namespace CensoRegional.Infrastructure.Messaging
@@ -16,12 +17,18 @@ namespace CensoRegional.Infrastructure.Messaging
 
         public async Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent
         {
-            await _busClient.PublishAsync(@event, ctx => ctx
+            try
+            {
+                await _busClient.PublishAsync(@event, ctx => ctx
                 .UsePublishConfiguration(cfg => cfg
                     .OnDeclaredExchange(e => e
-                        .WithName("sample-rabbitmq-publish")
-                        .WithType(ExchangeType.Topic))
+                        .WithName("censoregional.domain.events"))
                     .WithRoutingKey(typeof(TEvent).Name)));
+            } catch (Exception Ex)
+            {
+                throw new Exception(Ex.Message);
+            }
         }
+            
     }
 }

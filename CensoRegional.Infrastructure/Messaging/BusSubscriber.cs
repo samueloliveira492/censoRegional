@@ -44,7 +44,7 @@ namespace CensoRegional.Infrastructure.Messaging
                     .WithDurability()
                     .WithAutoDelete(false))
                 .OnDeclaredExchange(e => e
-                  .WithName("sample-rabbitmq-publish")
+                  .WithName("censoregional.domain.events")
                   .WithType(ExchangeType.Topic)
                   .WithArgument("key", typeof(TEvent).Name.ToLower()))
             ));
