@@ -22,9 +22,14 @@ namespace CensoRegional.Application.QueryHandlers
             List<PercentagePeopleSameNameByRegionQueryDto> resultado = new List<PercentagePeopleSameNameByRegionQueryDto>();
             IEnumerable<Person> people = await _personRepository.GetAllPersonByRegion(request.Region);
             double total = people.Count();
-            resultado.AddRange(people.GroupBy(p => p.Name).Select(p1 => 
-                new PercentagePeopleSameNameByRegionQueryDto { Name = p1.First().Name, Percentage = (p1.Count()/total)*100}
-            ).ToList());
+
+            if (people.Any())
+            {
+                resultado.AddRange(people.GroupBy(p => p.Name).Select(p1 =>
+                new PercentagePeopleSameNameByRegionQueryDto { Name = p1.First().Name, Percentage = (p1.Count() / total) * 100 }
+                ).ToList());
+            }
+            
 
             return resultado;
         }

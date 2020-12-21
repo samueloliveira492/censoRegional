@@ -24,4 +24,9 @@
     <ProjectReference Include="..\CensoRegional.Domain\CensoRegional.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\Queries\" />
+    <Folder Include="Presentation\" />
+  </ItemGroup>
+
 </Project>

@@ -31,6 +31,9 @@ namespace CensoRegional.Api.Consumer.Controllers
         [ProducesResponseType(typeof(FamilyTreeByPersonQuery), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetFamilyTreeByPerson(string name, string lastName, int level)
         {
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(lastName))
+                return BadRequest();
+
             FamilyTreeByPersonQueryDto result = await _mediator.Send(new FamilyTreeByPersonQuery { Name = name, LastName = lastName, Level = level });
             return Ok(result);
 
@@ -46,6 +49,9 @@ namespace CensoRegional.Api.Consumer.Controllers
         [ProducesResponseType(typeof(IEnumerable<PercentagePeopleSameNameByRegionQueryDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> PercentagePeopleSameNameByRegion(string region)
         {
+            if (string.IsNullOrEmpty(region))
+                return BadRequest();
+
             IEnumerable<PercentagePeopleSameNameByRegionQueryDto> result = await _mediator.Send(new PercentagePeopleSameNameByRegionQuery { Region = region });
             return Ok(result);
 
