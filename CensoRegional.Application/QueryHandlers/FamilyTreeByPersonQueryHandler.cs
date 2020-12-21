@@ -2,6 +2,7 @@
 using CensoRegional.Domain.Entity;
 using CensoRegional.Domain.Queries;
 using CensoRegional.Domain.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -19,19 +20,26 @@ namespace CensoRegional.Application.QueryHandlers
 
         public async Task<FamilyTreeByPersonQueryDto> Handle(FamilyTreeByPersonQuery request, CancellationToken cancellationToken)
         {
-            FamilyTreeByPersonQueryDto resultado = null;
-            var personCleaning = _personRepository.GetByNameAndLastName(request.Name, request.LastName).Result;
-            if(personCleaning != null && personCleaning.Any()) {
-                resultado = new FamilyTreeByPersonQueryDto();
-                resultado.Name = request.Name;
-                resultado.LastName = request.LastName;
-            
-                resultado.Children = new List<FamilyTreeByPersonQueryDto>();
-                if (request.Level > 0)
-                    resultado.Children =  await GetTreeFamily(request.Name, request.LastName, request.Level);
-                
+            try
+            {
+                FamilyTreeByPersonQueryDto resultado = null;
+                var personCleaning = _personRepository.GetByNameAndLastName(request.Name, request.LastName).Result;
+                if (personCleaning != null && personCleaning.Any())
+                {
+                    resultado = new FamilyTreeByPersonQueryDto();
+                    resultado.Name = request.Name;
+                    resultado.LastName = request.LastName;
+
+                    resultado.Children = new List<FamilyTreeByPersonQueryDto>();
+                    if (request.Level > 0)
+                        resultado.Children = await GetTreeFamily(request.Name, request.LastName, request.Level);
+
+                }
+                return resultado;
+            } catch(Exception ex)
+            {
+                throw new Exception(ex.ToString());
             }
-            return resultado;
             
         }
 

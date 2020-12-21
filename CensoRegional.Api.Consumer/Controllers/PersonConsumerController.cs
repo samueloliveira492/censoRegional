@@ -3,6 +3,7 @@ using CensoRegional.Domain.Queries;
 using CensoRegional.Util.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -31,10 +32,17 @@ namespace CensoRegional.Api.Consumer.Controllers
         [ProducesResponseType(typeof(FamilyTreeByPersonQuery), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetFamilyTreeByPerson(string name, string lastName, int level)
         {
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(lastName))
-                return BadRequest();
-
-            FamilyTreeByPersonQueryDto result = await _mediator.Send(new FamilyTreeByPersonQuery { Name = name, LastName = lastName, Level = level });
+            FamilyTreeByPersonQueryDto result = new FamilyTreeByPersonQueryDto();
+            try
+            {
+                if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(lastName))
+                    return BadRequest();
+                result = await _mediator.Send(new FamilyTreeByPersonQuery { Name = name, LastName = lastName, Level = level });
+                
+            } catch(Exception ex)
+            {
+                BadRequest(ex.Message);
+            }
             return Ok(result);
 
         }
