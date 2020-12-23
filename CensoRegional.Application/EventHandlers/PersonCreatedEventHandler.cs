@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CensoRegional.Application.EventHandlers
 {
-    public class PersonCreatedEventHandler
+    public class PersonCreatedEventHandler : IRequestHandler<PersonCreateEvent>
     {
         public async Task<Unit> Handle(PersonCreateEvent request, CancellationToken cancellationToken)
         {

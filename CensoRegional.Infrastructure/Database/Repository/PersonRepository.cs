@@ -28,12 +28,12 @@ namespace CensoRegional.Infrastructure.Database.Repository
             return Unit.Value;
         }
 
-        public async Task<Unit> DeletePerson(Person person)
+        public async Task<Unit> DeletePerson(string name, string lastName)
         {
             await _graphClient.Cypher
             .Match($"(a:Person)")
-            .Where((Person a) => a.Name == person.Name)
-            .AndWhere((Person a) => a.LastName == person.LastName)
+            .Where((Person a) => a.Name == name)
+            .AndWhere((Person a) => a.LastName == lastName)
             .Delete("a").ExecuteWithoutResultsAsync();
             return Unit.Value;
         }
@@ -51,9 +51,9 @@ namespace CensoRegional.Infrastructure.Database.Repository
         public async Task<IEnumerable<Person>> GetAllPersonByRegion(string region)
         {
             return await _graphClient.Cypher
-                .Match("(a:Person)")
-                .Where((Person a) => a.Region == region)
-                .Return<Person>("a").ResultsAsync;
+            .Match("(a:Person)")
+            .Where((Person a) => a.Region == region)
+            .Return<Person>("a").ResultsAsync;
         }
 
         public async Task<IEnumerable<Person>> GetChildrenByNameAndLastName(string name, string lastName)

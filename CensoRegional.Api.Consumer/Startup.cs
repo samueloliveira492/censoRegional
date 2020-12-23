@@ -12,6 +12,7 @@ using CensoRegional.Application.QueryHandlers;
 using CensoRegional.Ioc;
 using curso.Ioc;
 using AutoMapper;
+using CensoRegional.Domain.Events;
 
 namespace CensoRegional.Api.Consumer
 {
@@ -72,6 +73,8 @@ namespace CensoRegional.Api.Consumer
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseRabbitMq().SubscribeEvent<PersonCreateEvent>();
+            app.UseRabbitMq().SubscribeEvent<PersonDeleteEvent>();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();

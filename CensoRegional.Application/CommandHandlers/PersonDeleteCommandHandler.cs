@@ -12,21 +12,18 @@ namespace CensoRegional.Application.CommandHandlers
 {
     class PersonDeleteCommandHandler : IRequestHandler<PersonDeleteCommand>
     {
-        private readonly IBusPublisher _busPublisher;
+        private readonly IBusEventPublisher _busPublisher;
         private readonly IPersonRepository _personRepository;
-        private readonly IMapper _mapper;
-        public PersonDeleteCommandHandler(IBusPublisher busPublisher, IPersonRepository personRepository, IMapper mapper)
+        public PersonDeleteCommandHandler(IBusEventPublisher busPublisher, IPersonRepository personRepository)
         {
             _busPublisher = busPublisher;
             _personRepository = personRepository;
-            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(PersonDeleteCommand request, CancellationToken cancellationToken)
         {
-            Person person = _mapper.Map<Person>(request.Person);
-            await _personRepository.DeletePerson(person);
-            await _busPublisher.PublishAsync(new PersonDeleteEvent { Name = request.Person.Name, LastName = request.Person.LastName });
+            await _personRepository.DeletePerson(request.Name, request.LastName);
+            await _busPublisher.PublishEventAsync(new PersonDeleteEvent { Name = request.Name, LastName = request.LastName });
             return Unit.Value;
         }
     }

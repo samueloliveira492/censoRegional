@@ -15,10 +15,10 @@ namespace CensoRegional.Application.CommandHandlers
 {
     public class PersonCreateCommandHandler : IRequestHandler<PersonCreateCommand>
     {
-        private readonly IBusPublisher _busPublisher;
+        private readonly IBusEventPublisher _busPublisher;
         private readonly IPersonRepository _personRepository;
         private readonly IMapper _mapper;
-        public PersonCreateCommandHandler(IBusPublisher busPublisher, IPersonRepository personRepository, IMapper mapper)
+        public PersonCreateCommandHandler(IBusEventPublisher busPublisher, IPersonRepository personRepository, IMapper mapper)
         {
             _busPublisher = busPublisher;
             _personRepository = personRepository;
@@ -32,9 +32,11 @@ namespace CensoRegional.Application.CommandHandlers
             if (cleaning == null)
             {
                 await _personRepository.CreatePerson(mainPerson);
-                CreatePersonAndRelationship(request.Parents, mainPerson, true);
-                CreatePersonAndRelationship(request.Children, mainPerson, false);
-                await _busPublisher.PublishAsync(new PersonCreateEvent { Name = request.Person.Name, LastName = request.Person.LastName });
+                if(request.Parents != null)
+                    CreatePersonAndRelationship(request.Parents, mainPerson, true);
+                if (request.Children != null)
+                    CreatePersonAndRelationship(request.Children, mainPerson, false);
+                await _busPublisher.PublishEventAsync(new PersonCreateEvent { Name = request.Person.Name, LastName = request.Person.LastName });
             }
             return Unit.Value;
         }
@@ -61,9 +63,9 @@ namespace CensoRegional.Application.CommandHandlers
                             _personRepository.CreateRelationship(mainPerson, rel, Relacionamentos.PARENT);
                         }
 
-                        if (p.Parents != null && p.Parents.Any())
+                        if (p.Parents != null)
                             CreatePersonAndRelationship(p.Parents, rel, true);
-                        if (p.Children != null &&  p.Children.Any())
+                        if (p.Children != null)
                             CreatePersonAndRelationship(p.Children, rel, false);
                     }
                 }

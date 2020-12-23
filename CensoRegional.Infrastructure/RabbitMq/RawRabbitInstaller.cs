@@ -33,6 +33,6 @@ namespace CensoRegional.Infrastructure.RabbitMq
             return services;
         }
 
-        public static IBusSubscriber UseRabbitMq(this IApplicationBuilder app) => new BusSubscriber(app);
+        public static IBusEventSubscriber UseRabbitMq(this IApplicationBuilder app) => new BusEventSubscriber(app);
     }
 }

@@ -1,9 +1,10 @@
-﻿using MediatR;
+﻿using CensoRegional.Domain.Messaging;
+using MediatR;
 using System;
 
 namespace CensoRegional.Domain.Commands
 {
-    public class BaseCommand : IRequest
+    public class BaseCommand : ICommand, IRequest
     {
         protected Guid _operationId;
         protected string _origem;

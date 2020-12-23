@@ -18,7 +18,7 @@ namespace CensoRegional.Test.Domain.Queries
         public void ObtemArvore_UsuarioNaoExistente()
         {
             var person = new Person { Name = "Nome", LastName = "Sobrenome" };
-            var busPublisher = new Mock<IBusPublisher>();
+            var busPublisher = new Mock<IBusEventPublisher>();
             var personRepository = new Mock<IPersonRepository>();
             personRepository.Setup(repo => repo.GetByNameAndLastName(person.Name, person.LastName)).ReturnsAsync(new List<Person>());
             var a = new List<Person>();
@@ -36,7 +36,7 @@ namespace CensoRegional.Test.Domain.Queries
         public void ObtemArvore_UsuarioExistente_SemFilhos()
         {
             var person = new Person { Name = "Nome", LastName = "Sobrenome" };
-            var busPublisher = new Mock<IBusPublisher>();
+            var busPublisher = new Mock<IBusEventPublisher>();
             var personRepository = new Mock<IPersonRepository>();
             personRepository.Setup(repo => repo.GetByNameAndLastName(person.Name, person.LastName)).ReturnsAsync(new List<Person>() { person });
             personRepository.Setup(repo => repo.GetChildrenByNameAndLastName(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new List<Person>());
@@ -61,7 +61,7 @@ namespace CensoRegional.Test.Domain.Queries
         {
             var person = new Person { Name = "Nome", LastName = "Sobrenome" };
             var personChild = new Person { Name = "NomeFilho", LastName = "SobrenomeFilho" };
-            var busPublisher = new Mock<IBusPublisher>();
+            var busPublisher = new Mock<IBusEventPublisher>();
             var personRepository = new Mock<IPersonRepository>();
             personRepository.Setup(repo => repo.GetByNameAndLastName(person.Name, person.LastName)).ReturnsAsync(new List<Person>() { person });
             personRepository.Setup(repo => repo.GetChildrenByNameAndLastName(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new List<Person>() { personChild });

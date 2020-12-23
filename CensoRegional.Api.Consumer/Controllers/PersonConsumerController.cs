@@ -58,7 +58,7 @@ namespace CensoRegional.Api.Consumer.Controllers
         }
 
         /// <summary>
-        /// Get number of people whot meet the filter
+        /// Get number of people who meet the filter
         /// </summary>
         /// <param name="name">Name of the people.</param>
         /// <param name="lastName">Last name of the people.</param>

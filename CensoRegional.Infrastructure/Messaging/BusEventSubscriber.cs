@@ -10,18 +10,18 @@ using RawRabbit.Configuration.Exchange;
 
 namespace CensoRegional.Infrastructure.Messaging
 {
-    public class BusSubscriber : IBusSubscriber
+    public class BusEventSubscriber : IBusEventSubscriber
     {
         private readonly IBusClient _busClient;
         private readonly IServiceProvider _serviceProvider;
 
-        public BusSubscriber(IApplicationBuilder app)
+        public BusEventSubscriber(IApplicationBuilder app)
         {
             _serviceProvider = app.ApplicationServices.GetService<IServiceProvider>();
             _busClient = _serviceProvider.GetService<IBusClient>();
         }
 
-        public IBusSubscriber SubscribeEvent<TEvent>() where TEvent : IEvent, IRequest
+        public IBusEventSubscriber SubscribeEvent<TEvent>() where TEvent : IEvent, IRequest
         {
             _busClient.SubscribeAsync<TEvent>(async (@event) =>
             {

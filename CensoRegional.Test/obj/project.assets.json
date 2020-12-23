@@ -6842,21 +6842,17 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\samue\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\samue\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\samue\\source\\repos\\samueloliveira492\\desafioCensoRegional\\censoRegional\\censoRegional\\CensoRegional.Test\\CensoRegional.Test.csproj",
+      "projectUniqueName": "C:\\Users\\samue\\Source\\Repos\\samueloliveira492\\censoRegional\\CensoRegional.Test\\CensoRegional.Test.csproj",
       "projectName": "CensoRegional.Test",
-      "projectPath": "C:\\Users\\samue\\source\\repos\\samueloliveira492\\desafioCensoRegional\\censoRegional\\censoRegional\\CensoRegional.Test\\CensoRegional.Test.csproj",
+      "projectPath": "C:\\Users\\samue\\Source\\Repos\\samueloliveira492\\censoRegional\\CensoRegional.Test\\CensoRegional.Test.csproj",
       "packagesPath": "C:\\Users\\samue\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\samue\\source\\repos\\samueloliveira492\\desafioCensoRegional\\censoRegional\\censoRegional\\CensoRegional.Test\\obj\\",
+      "outputPath": "C:\\Users\\samue\\Source\\Repos\\samueloliveira492\\censoRegional\\CensoRegional.Test\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\samue\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -6872,11 +6868,11 @@
         "netcoreapp2.2": {
           "targetAlias": "netcoreapp2.2",
           "projectReferences": {
-            "C:\\Users\\samue\\source\\repos\\samueloliveira492\\desafioCensoRegional\\censoRegional\\censoRegional\\CensoRegional.Application\\CensoRegional.Application.csproj": {
-              "projectPath": "C:\\Users\\samue\\source\\repos\\samueloliveira492\\desafioCensoRegional\\censoRegional\\censoRegional\\CensoRegional.Application\\CensoRegional.Application.csproj"
+            "C:\\Users\\samue\\Source\\Repos\\samueloliveira492\\censoRegional\\CensoRegional.Application\\CensoRegional.Application.csproj": {
+              "projectPath": "C:\\Users\\samue\\Source\\Repos\\samueloliveira492\\censoRegional\\CensoRegional.Application\\CensoRegional.Application.csproj"
             },
-            "C:\\Users\\samue\\source\\repos\\samueloliveira492\\desafioCensoRegional\\censoRegional\\censoRegional\\CensoRegional.Domain\\CensoRegional.Domain.csproj": {
-              "projectPath": "C:\\Users\\samue\\source\\repos\\samueloliveira492\\desafioCensoRegional\\censoRegional\\censoRegional\\CensoRegional.Domain\\CensoRegional.Domain.csproj"
+            "C:\\Users\\samue\\Source\\Repos\\samueloliveira492\\censoRegional\\CensoRegional.Domain\\CensoRegional.Domain.csproj": {
+              "projectPath": "C:\\Users\\samue\\Source\\Repos\\samueloliveira492\\censoRegional\\CensoRegional.Domain\\CensoRegional.Domain.csproj"
             }
           }
         }

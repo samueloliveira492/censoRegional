@@ -1,8 +1,8 @@
 ﻿
 using CensoRegional.Domain.Commands;
+using CensoRegional.Domain.Messaging;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace CensoRegional.Api.Sender.Controllers
 {
@@ -10,23 +10,32 @@ namespace CensoRegional.Api.Sender.Controllers
     [ApiController]
     public class PersonSenderController : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public PersonSenderController(IMediator mediator)
+        private readonly IBusCommandPublisher _busCommandPublisher;
+        public PersonSenderController(IBusCommandPublisher busCommandPublisher)
         {
-            _mediator = mediator;
+            _busCommandPublisher = busCommandPublisher;
         }
 
+        /// <summary>
+        /// Create Person
+        /// </summary>
+        /// <param name="request">Person details.</param>
         [HttpPost]
         public IActionResult Post([FromBody] PersonCreateCommand request)
         {
-            _mediator.Send(request);
+            _busCommandPublisher.PublishCommandAsync(request);
             return Created("", null);
         }
 
+        /// <summary>
+        /// Delete Person by name and last name
+        /// </summary>
+        /// <param name="name">Name of the person.</param>
+        /// <param name="lastName">Last name of the person.</param>
         [HttpDelete]
-        public IActionResult Delete([FromBody] PersonDeleteCommand request)
+        public IActionResult Delete(string name, string lastName)
         {
-            _mediator.Send(request);
+            _busCommandPublisher.PublishCommandAsync(new PersonDeleteCommand { Name = name, LastName = lastName });
             return Ok();
         }
     }

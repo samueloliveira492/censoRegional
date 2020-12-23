@@ -9,7 +9,7 @@ namespace CensoRegional.Domain.Repositories
     public interface IPersonRepository
     {
         Task<Unit> CreatePerson(Person person);
-        Task<Unit> DeletePerson(Person person);
+        Task<Unit> DeletePerson(string name, string lastName);
         void CreateRelationship(Person parent, Person son, string relationship);
         Task<IEnumerable<Person>> GetAllPersonByRegion(string region);
         Task<IEnumerable<Person>> GetChildrenByNameAndLastName(string name, string lastName);

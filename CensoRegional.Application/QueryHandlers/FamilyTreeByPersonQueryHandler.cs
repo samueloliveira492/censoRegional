@@ -53,10 +53,7 @@ namespace CensoRegional.Application.QueryHandlers
                     }
                     return children;
                 }
-                else
-                {
-                    return null;
-                }
+                return null;
             }
         }
     }
