@@ -14,13 +14,12 @@ namespace CensoRegional.Test.Domain.Queries
     public class PercentagePeopleSameNameByRegionQueryTest
     {
         [Fact]
-        public void ObtemQuantidadeDePessoasComMesmoNome_NenhumaPessoaRetornadaPeloRepositorio()
+        public void GetQuantityPeopleWithSameName_RepositoryReturnsNone()
         {
 
             var busPublisher = new Mock<IBusEventPublisher>();
             var personRepository = new Mock<IPersonRepository>();
             personRepository.Setup(repo => repo.GetAllPersonByRegion(It.IsAny<string>())).ReturnsAsync(new List<Person> { });
-            var a = new List<Person>();
 
             PercentagePeopleSameNameByRegionQuery query = new PercentagePeopleSameNameByRegionQuery();
             PercentagePeopleSameNameByRegionQueryHandler handler = new PercentagePeopleSameNameByRegionQueryHandler(personRepository.Object);
@@ -34,7 +33,7 @@ namespace CensoRegional.Test.Domain.Queries
         }
 
         [Fact]
-        public void ObtemQuantidadeDePessoasComMesmoNome_NenhumNomeIgual()
+        public void GetQuantityPeopleWithSameName_NoSameName()
         {
             var person = new Person { Name = "Nome1" };
             var person2 = new Person { Name = "Nome2" };
@@ -44,7 +43,6 @@ namespace CensoRegional.Test.Domain.Queries
             var busPublisher = new Mock<IBusEventPublisher>();
             var personRepository = new Mock<IPersonRepository>();
             personRepository.Setup(repo => repo.GetAllPersonByRegion(It.IsAny<string>())).ReturnsAsync(new List<Person> { person, person2, person3, person4 });
-            var a = new List<Person>();
 
             PercentagePeopleSameNameByRegionQuery query = new PercentagePeopleSameNameByRegionQuery();
             PercentagePeopleSameNameByRegionQueryHandler handler = new PercentagePeopleSameNameByRegionQueryHandler(personRepository.Object);
@@ -58,7 +56,7 @@ namespace CensoRegional.Test.Domain.Queries
         }
 
         [Fact]
-        public void ObtemQuantidadeDePessoasComMesmoNome()
+        public void GetQuantityPeopleWithSameName()
         {
             var person = new Person { Name = "Nome" };
             var person2 = new Person { Name = "Nome" };
@@ -68,7 +66,6 @@ namespace CensoRegional.Test.Domain.Queries
             var busPublisher = new Mock<IBusEventPublisher>();
             var personRepository = new Mock<IPersonRepository>();
             personRepository.Setup(repo => repo.GetAllPersonByRegion(It.IsAny<string>())).ReturnsAsync(new List<Person> { person, person2, person3, person4});
-            var a = new List<Person>();
 
             PercentagePeopleSameNameByRegionQuery query = new PercentagePeopleSameNameByRegionQuery();
             PercentagePeopleSameNameByRegionQueryHandler handler = new PercentagePeopleSameNameByRegionQueryHandler(personRepository.Object);

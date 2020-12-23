@@ -14,13 +14,13 @@ namespace CensoRegional.Test.Domain.Queries
     public class FamilyTreeByPersonQueryTest
     {
         [Fact]
-        public void ObtemArvore_UsuarioNaoExistente()
+        public void GetTreeFamily_UserNotExists()
         {
             var person = new Person { Name = "Nome", LastName = "Sobrenome" };
             var busPublisher = new Mock<IBusEventPublisher>();
             var personRepository = new Mock<IPersonRepository>();
             personRepository.Setup(repo => repo.GetByNameAndLastName(person.Name, person.LastName)).ReturnsAsync(new List<Person>());
-            var a = new List<Person>();
+
             FamilyTreeByPersonQuery query = new FamilyTreeByPersonQuery();
             FamilyTreeByPersonQueryHandler handler = new FamilyTreeByPersonQueryHandler(personRepository.Object);
 
@@ -32,14 +32,14 @@ namespace CensoRegional.Test.Domain.Queries
         }
 
         [Fact]
-        public void ObtemArvore_UsuarioExistente_SemFilhos()
+        public void GetFamilyTree_UserWithoutChildren()
         {
             var person = new Person { Name = "Nome", LastName = "Sobrenome" };
             var busPublisher = new Mock<IBusEventPublisher>();
             var personRepository = new Mock<IPersonRepository>();
             personRepository.Setup(repo => repo.GetByNameAndLastName(person.Name, person.LastName)).ReturnsAsync(new List<Person>() { person });
             personRepository.Setup(repo => repo.GetChildrenByNameAndLastName(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new List<Person>());
-            var a = new List<Person>();
+
             FamilyTreeByPersonQuery query = new FamilyTreeByPersonQuery() {Name = person.Name, LastName = person.LastName, Level = 2 };
 
             FamilyTreeByPersonQueryHandler handler = new FamilyTreeByPersonQueryHandler(personRepository.Object);
@@ -56,7 +56,7 @@ namespace CensoRegional.Test.Domain.Queries
         }
 
         [Fact]
-        public void ObtemArvore_UsuarioExistente_ComFilho()
+        public void GetFamilyTree_UserWithChildren()
         {
             var person = new Person { Name = "Nome", LastName = "Sobrenome" };
             var personChild = new Person { Name = "NomeFilho", LastName = "SobrenomeFilho" };
@@ -64,7 +64,7 @@ namespace CensoRegional.Test.Domain.Queries
             var personRepository = new Mock<IPersonRepository>();
             personRepository.Setup(repo => repo.GetByNameAndLastName(person.Name, person.LastName)).ReturnsAsync(new List<Person>() { person });
             personRepository.Setup(repo => repo.GetChildrenByNameAndLastName(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new List<Person>() { personChild });
-            var a = new List<Person>();
+
             FamilyTreeByPersonQuery query = new FamilyTreeByPersonQuery() { Name = person.Name, LastName = person.LastName, Level = 2 };
 
             FamilyTreeByPersonQueryHandler handler = new FamilyTreeByPersonQueryHandler(personRepository.Object);

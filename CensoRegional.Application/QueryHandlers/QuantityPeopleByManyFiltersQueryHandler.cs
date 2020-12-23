@@ -19,9 +19,12 @@ namespace CensoRegional.Application.QueryHandlers
 
         public async Task<QuantityPeopleByManyFiltersQueryDto> Handle(QuantityPeopleByManyFiltersQuery request, CancellationToken cancellationToken)
         {
-            QuantityPeopleByManyFiltersQueryDto resultado = new QuantityPeopleByManyFiltersQueryDto();
+            QuantityPeopleByManyFiltersQueryDto resultado = new QuantityPeopleByManyFiltersQueryDto { Quantity = 0};
+
             IEnumerable<Person> people = await _personRepository.GetPersonByConcatenationFilterCondition(request.Name, request.LastName, request.ColorFilter, request.LevelEducationFilter);
-            resultado.Quantity = people.Count();
+            if(people != null)
+                resultado.Quantity = people.Count();
+
             return resultado;
         }
     }
