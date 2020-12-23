@@ -26,8 +26,9 @@ namespace CensoRegional.Application.QueryHandlers
             {
                 double total = people.Count();
                 resultado.AddRange(people.GroupBy(p => p.Name).Select(p1 =>
-                new PercentagePeopleSameNameByRegionQueryDto { Name = p1.First().Name, Percentage = (p1.Count() / total) * 100 }
-                ).ToList());
+                new PercentagePeopleSameNameByRegionQueryDto { Name = p1.First().Name, 
+                    Percentage = p1.Count() > 1 ? (p1.Count() / total) * 100 : 0 }
+                ).Where( p => p.Percentage > 0 ).ToList());
             }
             
 
