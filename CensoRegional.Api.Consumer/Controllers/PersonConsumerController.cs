@@ -3,7 +3,6 @@ using CensoRegional.Domain.Queries;
 using CensoRegional.Util.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
