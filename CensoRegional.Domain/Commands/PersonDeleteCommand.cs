@@ -1,6 +1,4 @@
-﻿using CensoRegional.Domain.Dtos;
-
-namespace CensoRegional.Domain.Commands
+﻿namespace CensoRegional.Domain.Commands
 {
     public class PersonDeleteCommand : BaseCommand
     {

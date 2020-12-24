@@ -2,7 +2,6 @@
 using MediatR;
 using RawRabbit;
 using RawRabbit.Configuration.Exchange;
-using System;
 using System.Threading.Tasks;
 
 namespace CensoRegional.Infrastructure.Messaging

@@ -1,5 +1,4 @@
-﻿using CensoRegional.Domain.Messaging;
-using MediatR;
+﻿using MediatR;
 using System;
 
 namespace CensoRegional.Domain.Events

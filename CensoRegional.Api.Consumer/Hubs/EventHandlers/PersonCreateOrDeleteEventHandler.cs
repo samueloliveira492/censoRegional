@@ -14,9 +14,9 @@ namespace CensoRegional.Api.Consumer.Hubs.EventHandlers
             _hubContext = hubContext;
         }
         
-        public Task Handle(PersonCreateOrDeleteEvent @event, CancellationToken cancellationToken)
+        public Task Handle(PersonCreateOrDeleteEvent @notification, CancellationToken cancellationToken)
         {
-            return _hubContext.Clients.All.SendAsync("personCommandExecuted", @event, cancellationToken);
+            return _hubContext.Clients.All.SendAsync("personCommandExecuted", @notification, cancellationToken);
         }
     }
 }

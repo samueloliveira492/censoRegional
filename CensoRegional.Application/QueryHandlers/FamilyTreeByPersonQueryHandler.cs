@@ -2,7 +2,6 @@
 using CensoRegional.Domain.Entity;
 using CensoRegional.Domain.Queries;
 using CensoRegional.Domain.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;

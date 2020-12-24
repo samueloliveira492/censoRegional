@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CensoRegional.Domain.Dtos
+﻿namespace CensoRegional.Domain.Dtos
 {
     public class QuantityPeopleByManyFiltersQueryDto
     {

@@ -1,7 +1,6 @@
 ﻿
 using CensoRegional.Domain.Commands;
 using CensoRegional.Domain.Messaging;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CensoRegional.Api.Sender.Controllers
