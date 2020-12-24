@@ -4,7 +4,7 @@ using System;
 
 namespace CensoRegional.Domain.Events
 {
-    public class BaseEvent : IEvent, IRequest
+    public class BaseEvent : MediatR.INotification
     {
         protected Guid _operationId;
         protected string _origem;

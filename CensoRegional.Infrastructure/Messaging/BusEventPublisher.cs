@@ -15,14 +15,14 @@ namespace CensoRegional.Infrastructure.Messaging
             _busClient = busClient;
         }
 
-        public async Task PublishEventAsync<TEvent>(TEvent @event) where TEvent : IEvent
+        public async Task PublishEventAsync<TNotification>(TNotification @event) where TNotification : INotification
         {
             await _busClient.PublishAsync(@event, ctx => ctx
             .UsePublishConfiguration(cfg => cfg
                 .OnDeclaredExchange(e => e
                     .WithName("censoregional.domain.events")
                     .WithType(ExchangeType.Topic))
-                .WithRoutingKey(typeof(TEvent).Name)));
+                .WithRoutingKey(typeof(TNotification).Name)));
         }
             
     }

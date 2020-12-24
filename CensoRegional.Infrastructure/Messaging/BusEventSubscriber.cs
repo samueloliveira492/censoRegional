@@ -21,9 +21,9 @@ namespace CensoRegional.Infrastructure.Messaging
             _busClient = _serviceProvider.GetService<IBusClient>();
         }
 
-        public IBusEventSubscriber SubscribeEvent<TEvent>() where TEvent : IEvent, IRequest
+        public IBusEventSubscriber SubscribeEvent<TNotification>() where TNotification : MediatR.INotification
         {
-            _busClient.SubscribeAsync<TEvent>(async (@event) =>
+            _busClient.SubscribeAsync<TNotification>(async (@event) =>
             {
                 try
                 {
@@ -38,15 +38,15 @@ namespace CensoRegional.Infrastructure.Messaging
                 }
 
             }, ctx => ctx.UseSubscribeConfiguration(cfg => cfg
-                .Consume(c => c.WithRoutingKey(typeof(TEvent).Name))
+                .Consume(c => c.WithRoutingKey(typeof(TNotification).Name))
                 .FromDeclaredQueue(q => q
-                    .WithName(GetQueueName<TEvent>())
+                    .WithName(GetQueueName<TNotification>())
                     .WithDurability()
                     .WithAutoDelete(false))
                 .OnDeclaredExchange(e => e
                   .WithName("censoregional.domain.events")
                   .WithType(ExchangeType.Topic)
-                  .WithArgument("key", typeof(TEvent).Name.ToLower()))
+                  .WithArgument("key", typeof(TNotification).Name.ToLower()))
             ));
             return this;
         }

@@ -1,5 +1,4 @@
-﻿using CensoRegional.Application.EventHandlers;
-using CensoRegional.Infrastructure.Database;
+﻿using CensoRegional.Infrastructure.Database;
 using CensoRegional.Infrastructure.RabbitMq;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +12,8 @@ using CensoRegional.Ioc;
 using curso.Ioc;
 using AutoMapper;
 using CensoRegional.Domain.Events;
+using CensoRegional.Api.Consumer.Hubs;
+using CensoRegional.Api.Consumer.Hubs.EventHandlers;
 
 namespace CensoRegional.Api.Consumer
 {
@@ -32,13 +33,16 @@ namespace CensoRegional.Api.Consumer
 
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddResolverDependencies();
-            services.AddMediatR(typeof(PersonCreatedEventHandler));
+
+            services.AddMediatR(typeof(PersonCreateOrDeleteEventHandler));
+            services.AddMediatR(typeof(FamilyTreeByPersonQueryHandler));
             services.AddMediatR(typeof(PercentagePeopleSameNameByRegionQueryHandler));
+            services.AddMediatR(typeof(QuantityPeopleByManyFiltersQueryHandler));
             services.AddAutoMapper(AssemblyReflection.GetCurrentAssemblies());
-
             services.AddRabbitMq(Configuration);
-
             services.AddDatabaseNeo4J(Configuration);
+
+            services.AddSignalR();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -73,8 +77,11 @@ namespace CensoRegional.Api.Consumer
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseRabbitMq().SubscribeEvent<PersonCreateEvent>();
-            app.UseRabbitMq().SubscribeEvent<PersonDeleteEvent>();
+            app.UseRabbitMq().SubscribeEvent<PersonCreateOrDeleteEvent>();
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<PersonEventHub>("/person-events");
+            });
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();

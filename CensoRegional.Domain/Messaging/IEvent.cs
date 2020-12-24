@@ -1,6 +1,6 @@
 ﻿namespace CensoRegional.Domain.Messaging
 {
-    public interface IEvent
+    public interface INotification
     {
 
     }
