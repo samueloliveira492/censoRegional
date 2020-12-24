@@ -4,6 +4,6 @@ namespace CensoRegional.Domain.Messaging
 {
     public interface IBusEventSubscriber
     {
-        IBusEventSubscriber SubscribeEvent<TNotification>() where TNotification : MediatR.INotification;
+        IBusEventSubscriber SubscribeEvent<TNotification>() where TNotification : INotification;
     }
 }

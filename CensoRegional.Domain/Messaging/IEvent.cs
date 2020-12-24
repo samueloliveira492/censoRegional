@@ -1,7 +1,0 @@
-﻿namespace CensoRegional.Domain.Messaging
-{
-    public interface INotification
-    {
-
-    }
-}

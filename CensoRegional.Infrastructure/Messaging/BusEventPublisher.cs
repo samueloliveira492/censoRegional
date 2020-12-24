@@ -1,4 +1,5 @@
 ﻿using CensoRegional.Domain.Messaging;
+using MediatR;
 using RawRabbit;
 using RawRabbit.Configuration.Exchange;
 using System;
