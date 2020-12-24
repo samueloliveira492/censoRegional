@@ -23,13 +23,13 @@ namespace CensoRegional.Infrastructure.Messaging
 
         public IBusEventSubscriber SubscribeEvent<TNotification>() where TNotification : MediatR.INotification
         {
-            _busClient.SubscribeAsync<TNotification>(async (@event) =>
+            _busClient.SubscribeAsync<TNotification>(async (@notification) =>
             {
                 try
                 {
                     var scope = _serviceProvider.CreateScope();
                     var handler = scope.ServiceProvider.GetService<IMediator>();
-                    await handler.Send(@event);
+                    await handler.Send(@notification);
                 }
                 catch (Exception ex)
                 {

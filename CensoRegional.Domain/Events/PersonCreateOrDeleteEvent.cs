@@ -1,6 +1,6 @@
 ﻿namespace CensoRegional.Domain.Events
 {
-    public class PersonCreateOrDeleteEvent : BaseEvent
+    public class PersonCreateOrDeleteEvent : BaseNotification
     {
         public string Name { get; set; }
         public string LastName { get; set; }
