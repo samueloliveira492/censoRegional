@@ -22,7 +22,7 @@ namespace CensoRegional.Infrastructure.Messaging
                 .OnDeclaredExchange(e => e
                     .WithName("censoregional.domain.events")
                     .WithType(ExchangeType.Topic))
-                .WithRoutingKey(typeof(TNotification).Name)));
+                .WithRoutingKey(typeof(TNotification).Name.ToLower())));
         }
             
     }

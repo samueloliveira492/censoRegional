@@ -1,5 +1,6 @@
 ﻿using CensoRegional.Domain.Messaging;
 using MediatR;
+using System;
 
 namespace CensoRegional.Domain.Commands
 {
@@ -7,3 +8,4 @@ namespace CensoRegional.Domain.Commands
     {
     }
 }
+

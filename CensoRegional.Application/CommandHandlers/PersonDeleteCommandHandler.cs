@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CensoRegional.Application.CommandHandlers
 {
-    class PersonDeleteCommandHandler : IRequestHandler<PersonDeleteCommand>
+    public class PersonDeleteCommandHandler : IRequestHandler<PersonDeleteCommand>
     {
         private readonly IBusEventPublisher _busPublisher;
         private readonly IPersonRepository _personRepository;

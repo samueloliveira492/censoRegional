@@ -2,7 +2,7 @@
 
 namespace CensoRegional.Domain.Events
 {
-    public class BaseNotification : INotification
+    public class BaseNotification : INotification, IRequest
     {
     }
 }

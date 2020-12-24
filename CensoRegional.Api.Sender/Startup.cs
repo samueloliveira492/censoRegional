@@ -11,6 +11,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using CensoRegional.Ioc;
 using curso.Ioc;
 using AutoMapper;
+using CensoRegional.Domain.Commands;
+using CensoRegional.Domain.Events;
 
 namespace CensoRegional.Api.Sender
 {
@@ -32,6 +34,8 @@ namespace CensoRegional.Api.Sender
             services.AddAutoMapper(AssemblyReflection.GetCurrentAssemblies());
             services.AddResolverDependencies();
             services.AddMediatR(typeof(PersonCreateCommandHandler));
+            services.AddMediatR(typeof(PersonDeleteCommandHandler));
+
 
             services.AddRabbitMq(Configuration);
 
@@ -69,7 +73,8 @@ namespace CensoRegional.Api.Sender
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseRabbitMqForCommand().SubscribeCommand<PersonCreateCommand>();
+            app.UseRabbitMqForCommand().SubscribeCommand<PersonDeleteCommand>();
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 

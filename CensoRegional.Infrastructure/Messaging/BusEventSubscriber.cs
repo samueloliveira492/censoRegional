@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Builder;
 using RawRabbit;
 using Serilog;
 using System;
-using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using RawRabbit.Configuration.Exchange;
 
@@ -21,36 +20,43 @@ namespace CensoRegional.Infrastructure.Messaging
             _busClient = _serviceProvider.GetService<IBusClient>();
         }
 
-        public IBusEventSubscriber SubscribeEvent<TNotification>() where TNotification : MediatR.INotification
+        public IBusEventSubscriber SubscribeEvent<TNotification>() where TNotification : INotification
         {
-            _busClient.SubscribeAsync<TNotification>(async (@notification) =>
-            {
-                try
+            try {
+                _busClient.SubscribeAsync<TNotification>(async (@notification) =>
                 {
-                    var scope = _serviceProvider.CreateScope();
-                    var handler = scope.ServiceProvider.GetService<IMediator>();
-                    await handler.Send(@notification);
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(ex, "Erro ao processar mensagem");
-                    throw;
-                }
+                    try
+                    {
+                        var scope = _serviceProvider.CreateScope();
+                        var handler = scope.ServiceProvider.GetService<IMediator>();
+                        await handler.Send(@notification);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, "Erro ao processar mensagem");
+                        throw;
+                    }
 
-            }, ctx => ctx.UseSubscribeConfiguration(cfg => cfg
-                .Consume(c => c.WithRoutingKey(typeof(TNotification).Name))
-                .FromDeclaredQueue(q => q
-                    .WithName(GetQueueName<TNotification>())
-                    .WithDurability()
-                    .WithAutoDelete(false))
-                .OnDeclaredExchange(e => e
-                  .WithName("censoregional.domain.events")
-                  .WithType(ExchangeType.Topic)
-                  .WithArgument("key", typeof(TNotification).Name.ToLower()))
-            ));
+                }, ctx => ctx.UseSubscribeConfiguration(cfg => cfg
+                    .Consume(c => c.WithRoutingKey(typeof(TNotification).Name.ToLower()))
+                    .FromDeclaredQueue(q => q
+                        .WithName(GetQueueName<TNotification>().ToLower())
+                        .WithDurability()
+                        .WithAutoDelete(false))
+                    .OnDeclaredExchange(e => e
+                      .WithName("censoregional.domain.events")
+                      .WithType(ExchangeType.Topic)
+                      .WithArgument("key", typeof(TNotification).Name.ToLower()))
+                ));
+            }
+            catch(Exception ex)
+            {
+                var teste = ex.Message;
+            }
+            
             return this;
         }
 
-        private static string GetQueueName<T>() => $"{Assembly.GetEntryAssembly()?.GetName()}/{typeof(T).Name}";
+        private static string GetQueueName<T>() => $"{typeof(T).Name}";
     }
 }

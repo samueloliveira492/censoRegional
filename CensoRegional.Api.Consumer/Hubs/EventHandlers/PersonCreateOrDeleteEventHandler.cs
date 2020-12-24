@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CensoRegional.Api.Consumer.Hubs.EventHandlers
 {
-    public class PersonCreateOrDeleteEventHandler : INotificationHandler<PersonCreateOrDeleteEvent>
+    public class PersonCreateOrDeleteEventHandler : IRequestHandler<PersonCreateOrDeleteEvent>
     {
         private readonly IHubContext<PersonEventHub> _hubContext;
         public PersonCreateOrDeleteEventHandler(IHubContext<PersonEventHub> hubContext)
@@ -14,9 +14,10 @@ namespace CensoRegional.Api.Consumer.Hubs.EventHandlers
             _hubContext = hubContext;
         }
         
-        public Task Handle(PersonCreateOrDeleteEvent @notification, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(PersonCreateOrDeleteEvent @notification, CancellationToken cancellationToken)
         {
-            return _hubContext.Clients.All.SendAsync("personCommandExecuted", @notification, cancellationToken);
+            await _hubContext.Clients.All.SendAsync("personCommandExecuted", @notification, cancellationToken);
+            return Unit.Value;
         }
     }
 }

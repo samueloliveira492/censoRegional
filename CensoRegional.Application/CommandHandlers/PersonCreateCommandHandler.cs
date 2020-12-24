@@ -36,7 +36,7 @@ namespace CensoRegional.Application.CommandHandlers
                     CreatePersonAndRelationship(request.Parents, mainPerson, true);
                 if (request.Children != null)
                     CreatePersonAndRelationship(request.Children, mainPerson, false);
-                await _busPublisher.PublishEventAsync(new PersonCreateOrDeleteEvent { Name = request.Person.Name, LastName = request.Person.LastName });
+                await _busPublisher.PublishEventAsync(new PersonCreateOrDeleteEvent { Name = request.Person.Name, LastName = request.Person.LastName, Region = request.Person.Region });
             }
             return Unit.Value;
         }

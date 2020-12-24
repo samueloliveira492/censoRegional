@@ -1,4 +1,5 @@
 ﻿using CensoRegional.Domain.Messaging;
+using Newtonsoft.Json;
 using RawRabbit;
 using RawRabbit.Configuration.Exchange;
 using System.Threading.Tasks;
@@ -16,12 +17,12 @@ namespace CensoRegional.Infrastructure.Messaging
 
         public async Task PublishCommandAsync<TCommand>(TCommand @command) where TCommand : ICommand
         {
-            await _busClient.PublishAsync(@command, ctx => ctx
+                await _busClient.PublishAsync(@command, ctx => ctx
             .UsePublishConfiguration(cfg => cfg
                 .OnDeclaredExchange(e => e
                     .WithName("censoregional.domain.commands")
                     .WithType(ExchangeType.Direct))
-                .WithRoutingKey(typeof(TCommand).Name)));
+                .WithRoutingKey(typeof(TCommand).Name.ToLower())));
         }
             
     }

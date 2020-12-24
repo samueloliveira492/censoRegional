@@ -9,6 +9,7 @@ using RawRabbit.Enrichers.GlobalExecutionId;
 using RawRabbit.Enrichers.MessageContext;
 using RawRabbit.Enrichers.MessageContext.Context;
 using RawRabbit.Instantiation;
+using RawRabbit.Serialization;
 using System;
 
 namespace CensoRegional.Infrastructure.RabbitMq
@@ -23,16 +24,13 @@ namespace CensoRegional.Infrastructure.RabbitMq
             var client = RawRabbitFactory.CreateSingleton(new RawRabbitOptions
             {
                 ClientConfiguration = options,
-                Plugins = p => p
-                    .UseGlobalExecutionId()
-                    .UseHttpContext()
-                    .UseMessageContext(c => new MessageContext { GlobalRequestId = Guid.NewGuid() })
             });
             services.AddSingleton<IBusClient>(_ => client);
 
             return services;
         }
 
-        public static IBusEventSubscriber UseRabbitMq(this IApplicationBuilder app) => new BusEventSubscriber(app);
+        public static IBusEventSubscriber UseRabbitMqForEvent(this IApplicationBuilder app) => new BusEventSubscriber(app);
+        public static IBusCommandSubscriber UseRabbitMqForCommand(this IApplicationBuilder app) => new BusCommandSubscriber(app);
     }
 }

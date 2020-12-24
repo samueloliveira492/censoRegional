@@ -23,34 +23,40 @@ namespace CensoRegional.Infrastructure.Messaging
 
         public IBusCommandSubscriber SubscribeCommand<TCommand>() where TCommand : ICommand, IRequest
         {
-            _busClient.SubscribeAsync<TCommand>(async (@command) =>
-            {
-                try
+            try { 
+                _busClient.SubscribeAsync<TCommand>(async (@command) =>
                 {
-                    var scope = _serviceProvider.CreateScope();
-                    var handler = scope.ServiceProvider.GetService<IMediator>();
-                    await handler.Send(@command);
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(ex, "Erro ao processar mensagem");
-                    throw;
-                }
+                    try
+                    {
+                        var scope = _serviceProvider.CreateScope();
+                        var handler = scope.ServiceProvider.GetService<IMediator>();
+                        await handler.Send(@command);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, "Erro ao processar mensagem");
+                        throw;
+                    }
 
-            }, ctx => ctx.UseSubscribeConfiguration(cfg => cfg
-                .Consume(c => c.WithRoutingKey(typeof(TCommand).Name))
-                .FromDeclaredQueue(q => q
-                    .WithName(GetQueueName<TCommand>())
-                    .WithDurability()
-                    .WithAutoDelete(false))
-                .OnDeclaredExchange(e => e
-                  .WithName("censoregional.domain.commands")
-                  .WithType(ExchangeType.Topic)
-                  .WithArgument("key", typeof(TCommand).Name.ToLower()))
-            ));
+                }, ctx => ctx.UseSubscribeConfiguration(cfg => cfg
+                    .Consume(c => c.WithRoutingKey(typeof(TCommand).Name.ToLower()))
+                    .FromDeclaredQueue(q => q
+                        .WithName(GetQueueName<TCommand>().ToLower())
+                        .WithDurability()
+                        .WithAutoDelete(false))
+                    .OnDeclaredExchange(e => e
+                      .WithName("censoregional.domain.commands")
+                      .WithType(ExchangeType.Direct)
+                      .WithArgument("key", typeof(TCommand).Name.ToLower()))
+                ));
+            }
+            catch(Exception ex)
+            {
+                var teste = ex.Message;
+            }
             return this;
         }
 
-        private static string GetQueueName<T>() => $"{Assembly.GetEntryAssembly()?.GetName()}/{typeof(T).Name}";
+        private static string GetQueueName<T>() => $"{typeof(T).Name.ToLower()}";
     }
 }
