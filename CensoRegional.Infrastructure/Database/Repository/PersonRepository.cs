@@ -74,17 +74,19 @@ namespace CensoRegional.Infrastructure.Database.Repository
             .Return<Person>("a").ResultsAsync;
         }
 
-        public async Task<IEnumerable<Person>> GetPersonByConcatenationFilterCondition(string name, string lastName, ColorType? color, LevelEducationType? levelEducation)
+        public async Task<IEnumerable<Person>> GetPersonByConcatenationFilterCondition(string name, string lastName, string region, ColorType? color, LevelEducationType? levelEducation)
         {
              return await _graphClient.Cypher
             .Match($"(a:Person)")
             .WhereIf(!string.IsNullOrEmpty(name), (Person a) => a.Name == name)
             .WhereIf(string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(lastName), (Person a) => a.LastName == lastName)
-            .WhereIf(string.IsNullOrEmpty(name) && string.IsNullOrEmpty(lastName) && color.HasValue && color.Value > 0, (Person a) => a.Color == color)
-            .WhereIf(string.IsNullOrEmpty(name) && string.IsNullOrEmpty(lastName) && (!color.HasValue || color.Value == 0) && levelEducation.HasValue && levelEducation.Value > 0, (Person a) => a.LevelEducation == levelEducation)
+            .WhereIf(string.IsNullOrEmpty(name) && string.IsNullOrEmpty(lastName) && !string.IsNullOrEmpty(region), (Person a) => a.Region == region)
+            .WhereIf(string.IsNullOrEmpty(name) && string.IsNullOrEmpty(lastName) && string.IsNullOrEmpty(region) && color.HasValue && color.Value > 0, (Person a) => a.Color == color)
+            .WhereIf(string.IsNullOrEmpty(name) && string.IsNullOrEmpty(lastName) && string.IsNullOrEmpty(region) && (!color.HasValue || color.Value == 0) && levelEducation.HasValue && levelEducation.Value > 0, (Person a) => a.LevelEducation == levelEducation)
             .AndWhereIf(!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(lastName), (Person a) => a.LastName == lastName)
-            .AndWhereIf((!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(lastName)) && color.HasValue && color.Value > 0, (Person a) => a.Color == color)
-            .AndWhereIf((!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(lastName) || (color.HasValue && color.Value > 0)) && levelEducation.HasValue && levelEducation.Value > 0, (Person a) => a.LevelEducation == levelEducation)
+            .AndWhereIf(!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(lastName) && !string.IsNullOrEmpty(region), (Person a) => a.Region == region)
+            .AndWhereIf((!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(lastName) || !string.IsNullOrEmpty(region)) && color.HasValue && color.Value > 0, (Person a) => a.Color == color)
+            .AndWhereIf((!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(lastName) || !string.IsNullOrEmpty(region) || (color.HasValue && color.Value > 0)) && levelEducation.HasValue && levelEducation.Value > 0, (Person a) => a.LevelEducation == levelEducation)
             .Return<Person>("a").ResultsAsync;
         }
     }

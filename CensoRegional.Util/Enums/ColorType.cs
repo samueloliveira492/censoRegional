@@ -7,6 +7,5 @@
         Indigena = 3,
         Pardo = 4,
         Preto = 5
-
     }
 }

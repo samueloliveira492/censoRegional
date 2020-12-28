@@ -66,10 +66,10 @@ namespace CensoRegional.Api.Consumer.Controllers
         /// <returns>Number of people who meet the filter.</returns>
         [Route("quantity")]
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<PercentagePeopleSameNameByRegionQueryDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> QuantityPeopleByManyFilters(string name, string lastName, ColorType color, LevelEducationType levelEducation)
+        [ProducesResponseType(typeof(IEnumerable<QuantityPeopleByManyFiltersQueryDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> QuantityPeopleByManyFilters(string name, string lastName, string Region, ColorType color, LevelEducationType levelEducation)
         {
-            QuantityPeopleByManyFiltersQueryDto result = await _mediator.Send(new QuantityPeopleByManyFiltersQuery { Name = name, LastName = lastName, ColorFilter = color, LevelEducationFilter = levelEducation });
+            QuantityPeopleByManyFiltersQueryDto result = await _mediator.Send(new QuantityPeopleByManyFiltersQuery { Name = name, LastName = lastName, Region = Region, ColorFilter = color, LevelEducationFilter = levelEducation });
             return Ok(result);
 
         }

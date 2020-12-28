@@ -21,7 +21,7 @@ namespace CensoRegional.Application.QueryHandlers
         {
             QuantityPeopleByManyFiltersQueryDto resultado = new QuantityPeopleByManyFiltersQueryDto { Quantity = 0};
 
-            IEnumerable<Person> people = await _personRepository.GetPersonByConcatenationFilterCondition(request.Name, request.LastName, request.ColorFilter, request.LevelEducationFilter);
+            IEnumerable<Person> people = await _personRepository.GetPersonByConcatenationFilterCondition(request.Name, request.LastName, request.Region, request.ColorFilter, request.LevelEducationFilter);
             if(people != null)
                 resultado.Quantity = people.Count();
 

@@ -41,7 +41,15 @@ namespace CensoRegional.Api.Consumer
             services.AddAutoMapper(AssemblyReflection.GetCurrentAssemblies());
             services.AddRabbitMq(Configuration);
             services.AddDatabaseNeo4J(Configuration);
-
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
+                builder
+               .WithOrigins("http://localhost:4200")
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .SetIsOriginAllowed((host) => true)
+                       .AllowCredentials();
+               
+            }));
             services.AddSignalR();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -78,6 +86,8 @@ namespace CensoRegional.Api.Consumer
                 app.UseHsts();
             }
             app.UseRabbitMqForEvent().SubscribeEvent<PersonCreateOrDeleteEvent>();
+
+            app.UseCors("CorsPolicy");
             app.UseSignalR(routes =>
             {
                 routes.MapHub<PersonEventHub>("/person-events");

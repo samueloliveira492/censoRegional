@@ -14,6 +14,6 @@ namespace CensoRegional.Domain.Repositories
         Task<IEnumerable<Person>> GetAllPersonByRegion(string region);
         Task<IEnumerable<Person>> GetChildrenByNameAndLastName(string name, string lastName);
         Task<IEnumerable<Person>> GetByNameAndLastName(string name, string lastName);
-        Task<IEnumerable<Person>> GetPersonByConcatenationFilterCondition(string name, string lastName, ColorType? color, LevelEducationType? levelEducation);
+        Task<IEnumerable<Person>> GetPersonByConcatenationFilterCondition(string name, string lastName, string region, ColorType? color, LevelEducationType? levelEducation);
     }
 }

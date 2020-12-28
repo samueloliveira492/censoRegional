@@ -5,12 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RawRabbit;
 using RawRabbit.Configuration;
-using RawRabbit.Enrichers.GlobalExecutionId;
-using RawRabbit.Enrichers.MessageContext;
-using RawRabbit.Enrichers.MessageContext.Context;
 using RawRabbit.Instantiation;
-using RawRabbit.Serialization;
-using System;
 
 namespace CensoRegional.Infrastructure.RabbitMq
 {

@@ -11,7 +11,7 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("0b7cb698-7e71-4193-8bdf-c00382f0e987")]
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("s03e05-dbd150b6-d2db-4f61-abf6-acb91728ffd9")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("CensoRegional.Api.Sender")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
