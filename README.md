@@ -15,3 +15,5 @@ O rabbitMQ está na url http://localhost:15672/ com usuario censoRegional e senh
 Acesso ao azure devops com a automação da pipeline https://dev.azure.com/samueloliveira457/CensoRegional
 
 Acesso ao sonarcloud com os codesmells do projeto https://sonarcloud.io/dashboard?branch=development&id=samueloliveira457_CensoRegional
+
+Para o projeto web não foi configurado para ser executado via docker-compose sendo necessário executá-lo de forma separada
