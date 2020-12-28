@@ -24,7 +24,7 @@ namespace CensoRegional.Test.Domain.Queries
 
             var busPublisher = new Mock<IBusEventPublisher>();
             var personRepository = new Mock<IPersonRepository>();
-            personRepository.Setup(repo => repo.GetPersonByConcatenationFilterCondition(It.IsAny<string>(), It.IsAny<string>(),
+            personRepository.Setup(repo => repo.GetPersonByConcatenationFilterCondition(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
                 It.IsAny<ColorType?>(), It.IsAny<LevelEducationType?>())).ReturnsAsync((IEnumerable<Person>)null);
 
             QuantityPeopleByManyFiltersQuery query = new QuantityPeopleByManyFiltersQuery();
@@ -35,7 +35,7 @@ namespace CensoRegional.Test.Domain.Queries
             Assert.NotNull(result);
             Assert.True(result.Quantity == 0);
 
-            personRepository.Verify(m => m.GetPersonByConcatenationFilterCondition(It.IsAny<string>(), It.IsAny<string>(),
+            personRepository.Verify(m => m.GetPersonByConcatenationFilterCondition(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
                 It.IsAny<ColorType?>(), It.IsAny<LevelEducationType?>()), Times.Once);
         }
 
@@ -49,7 +49,7 @@ namespace CensoRegional.Test.Domain.Queries
 
             var busPublisher = new Mock<IBusEventPublisher>();
             var personRepository = new Mock<IPersonRepository>();
-            personRepository.Setup(repo => repo.GetPersonByConcatenationFilterCondition(It.IsAny<string>(), It.IsAny<string>(), 
+            personRepository.Setup(repo => repo.GetPersonByConcatenationFilterCondition(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
                 It.IsAny<ColorType?>(), It.IsAny<LevelEducationType?>())).ReturnsAsync(new List<Person> { person, person2, person3 });
             var a = new List<Person>();
 
@@ -61,7 +61,7 @@ namespace CensoRegional.Test.Domain.Queries
             Assert.NotNull(result);
             Assert.True(result.Quantity == 3);
 
-            personRepository.Verify(m => m.GetPersonByConcatenationFilterCondition(It.IsAny<string>(), It.IsAny<string>(),
+            personRepository.Verify(m => m.GetPersonByConcatenationFilterCondition(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
                 It.IsAny<ColorType?>(), It.IsAny<LevelEducationType?>()), Times.Once);
         }
     }
