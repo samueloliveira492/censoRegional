@@ -4,7 +4,6 @@ using CensoRegional.Util.Constantes;
 using CensoRegional.Util.Enums;
 using MediatR;
 using Neo4jClient;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

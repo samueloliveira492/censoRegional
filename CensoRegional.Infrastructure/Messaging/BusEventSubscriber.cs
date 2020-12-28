@@ -22,37 +22,31 @@ namespace CensoRegional.Infrastructure.Messaging
 
         public IBusEventSubscriber SubscribeEvent<TNotification>() where TNotification : INotification
         {
-            try {
-                _busClient.SubscribeAsync<TNotification>(async (@notification) =>
-                {
-                    try
-                    {
-                        var scope = _serviceProvider.CreateScope();
-                        var handler = scope.ServiceProvider.GetService<IMediator>();
-                        await handler.Send(@notification);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error(ex, "Erro ao processar mensagem");
-                        throw;
-                    }
-
-                }, ctx => ctx.UseSubscribeConfiguration(cfg => cfg
-                    .Consume(c => c.WithRoutingKey(typeof(TNotification).Name.ToLower()))
-                    .FromDeclaredQueue(q => q
-                        .WithName(GetQueueName<TNotification>().ToLower())
-                        .WithDurability()
-                        .WithAutoDelete(false))
-                    .OnDeclaredExchange(e => e
-                      .WithName("censoregional.domain.events")
-                      .WithType(ExchangeType.Topic)
-                      .WithArgument("key", typeof(TNotification).Name.ToLower()))
-                ));
-            }
-            catch(Exception ex)
+            _busClient.SubscribeAsync<TNotification>(async (@notification) =>
             {
-                var teste = ex.Message;
-            }
+                try
+                {
+                    var scope = _serviceProvider.CreateScope();
+                    var handler = scope.ServiceProvider.GetService<IMediator>();
+                    await handler.Send(@notification);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Erro ao processar mensagem");
+                    throw;
+                }
+
+            }, ctx => ctx.UseSubscribeConfiguration(cfg => cfg
+                .Consume(c => c.WithRoutingKey(typeof(TNotification).Name.ToLower()))
+                .FromDeclaredQueue(q => q
+                    .WithName(GetQueueName<TNotification>().ToLower())
+                    .WithDurability()
+                    .WithAutoDelete(false))
+                .OnDeclaredExchange(e => e
+                    .WithName("censoregional.domain.events")
+                    .WithType(ExchangeType.Topic)
+                    .WithArgument("key", typeof(TNotification).Name.ToLower()))
+            ));
             
             return this;
         }

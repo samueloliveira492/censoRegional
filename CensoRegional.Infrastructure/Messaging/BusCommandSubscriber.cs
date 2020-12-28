@@ -23,37 +23,31 @@ namespace CensoRegional.Infrastructure.Messaging
 
         public IBusCommandSubscriber SubscribeCommand<TCommand>() where TCommand : ICommand, IRequest
         {
-            try { 
-                _busClient.SubscribeAsync<TCommand>(async (@command) =>
-                {
-                    try
-                    {
-                        var scope = _serviceProvider.CreateScope();
-                        var handler = scope.ServiceProvider.GetService<IMediator>();
-                        await handler.Send(@command);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error(ex, "Erro ao processar mensagem");
-                        throw;
-                    }
-
-                }, ctx => ctx.UseSubscribeConfiguration(cfg => cfg
-                    .Consume(c => c.WithRoutingKey(typeof(TCommand).Name.ToLower()))
-                    .FromDeclaredQueue(q => q
-                        .WithName(GetQueueName<TCommand>().ToLower())
-                        .WithDurability()
-                        .WithAutoDelete(false))
-                    .OnDeclaredExchange(e => e
-                      .WithName("censoregional.domain.commands")
-                      .WithType(ExchangeType.Direct)
-                      .WithArgument("key", typeof(TCommand).Name.ToLower()))
-                ));
-            }
-            catch(Exception ex)
+            _busClient.SubscribeAsync<TCommand>(async (@command) =>
             {
-                var teste = ex.Message;
-            }
+                try
+                {
+                    var scope = _serviceProvider.CreateScope();
+                    var handler = scope.ServiceProvider.GetService<IMediator>();
+                    await handler.Send(@command);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Erro ao processar mensagem");
+                    throw;
+                }
+
+            }, ctx => ctx.UseSubscribeConfiguration(cfg => cfg
+                .Consume(c => c.WithRoutingKey(typeof(TCommand).Name.ToLower()))
+                .FromDeclaredQueue(q => q
+                    .WithName(GetQueueName<TCommand>().ToLower())
+                    .WithDurability()
+                    .WithAutoDelete(false))
+                .OnDeclaredExchange(e => e
+                    .WithName("censoregional.domain.commands")
+                    .WithType(ExchangeType.Direct)
+                    .WithArgument("key", typeof(TCommand).Name.ToLower()))
+            ));
             return this;
         }
 
