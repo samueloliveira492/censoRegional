@@ -1,6 +1,5 @@
 # CensoRegional
-API utilizando ASP.Net Core 2.2 - NEO4J - Mediatr - RabbitMQ - Arquitetura CQS
-
+API utilizando ASP.Net Core 2.2 - NEO4J - Mediatr - RabbitMQ - SignalR
 
 Para executar é necessário executar o comando na raiz do projeto docker-compose up
 
